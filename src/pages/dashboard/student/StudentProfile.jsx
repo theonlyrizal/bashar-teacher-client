@@ -9,14 +9,14 @@ const StudentProfile = () => {
   const [formData, setFormData] = useState({
     name: user?.name || '',
     phone: user?.phone || '',
-    photoURL: user?.photoURL || ''
+    photoURL: user?.photoURL || '',
   });
   const [updating, setUpdating] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -35,10 +35,7 @@ const StudentProfile = () => {
 
   return (
     <div>
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold mb-6">Profile Settings</h1>
       </motion.div>
 
@@ -52,8 +49,8 @@ const StudentProfile = () => {
           <div className="flex items-center gap-6 mb-6">
             <div className="avatar">
               <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img 
-                  src={formData.photoURL || 'https://i.ibb.co/4pDNDk1/avatar.png'} 
+                <img
+                  src={formData.photoURL || 'https://i.ibb.co/4pDNDk1/avatar.png'}
                   alt={formData.name}
                 />
               </div>
@@ -84,12 +81,7 @@ const StudentProfile = () => {
               <label className="label">
                 <span className="label-text font-semibold">Email</span>
               </label>
-              <input
-                type="email"
-                className="input input-bordered"
-                value={user?.email}
-                disabled
-              />
+              <input type="email" className="input input-bordered" value={user?.email} disabled />
               <label className="label">
                 <span className="label-text-alt text-gray-500">Email cannot be changed</span>
               </label>
@@ -129,11 +121,7 @@ const StudentProfile = () => {
             </div>
 
             <div className="card-actions justify-end">
-              <button
-                type="submit"
-                className="btn btn-primary btn-wide"
-                disabled={updating}
-              >
+              <button type="submit" className="btn btn-primary btn-wide" disabled={updating}>
                 {updating ? (
                   <span className="loading loading-spinner"></span>
                 ) : (
