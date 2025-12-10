@@ -1,24 +1,24 @@
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import AuthProvider from './context/AuthContext';
 
 // Layouts
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
+import AuthProvider from './context/AuthContext/AuthContext';
 
 function App() {
   return (
     <AuthProvider>
       <div className="flex flex-col min-h-screen">
         <Navbar />
-        
-        <main className="flex-grow">
+
+        <main className="grow">
           <Outlet />
         </main>
-        
+
         <Footer />
       </div>
-      
+
       {/* Toast Notifications */}
       <Toaster
         position="top-right"
