@@ -76,7 +76,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 py-20">
+      <section className="bg-linear-to-br from-primary/10 via-secondary/10 to-accent/10 py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial="hidden"
@@ -86,7 +86,7 @@ const Home = () => {
           >
             <motion.h1
               variants={itemVariants}
-              className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+              className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent"
             >
               Find Your Perfect Match
             </motion.h1>
@@ -315,7 +315,7 @@ const Home = () => {
                   className="text-center"
                 >
                   <div className="flex justify-center mb-4">
-                    <div className="bg-gradient-to-br from-primary/20 to-secondary/20 p-6 rounded-full">
+                    <div className="bg-linear-to-br from-primary/20 to-secondary/20 p-6 rounded-full">
                       {step.icon}
                     </div>
                   </div>
@@ -329,7 +329,7 @@ const Home = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-gradient-to-br from-primary/5 to-secondary/5">
+      <section className="py-16 bg-linear-to-br from-primary/5 to-secondary/5">
         <div className="container mx-auto px-4">
           <motion.div
             initial="hidden"
@@ -387,7 +387,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+      <section className="py-16 bg-linear-to-r from-primary to-secondary text-white">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
