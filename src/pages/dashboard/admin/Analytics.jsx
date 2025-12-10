@@ -11,7 +11,7 @@ const Analytics = () => {
     totalTransactions: 0,
     avgTransaction: 0,
     totalUsers: 0,
-    totalTuitions: 0
+    totalTuitions: 0,
   });
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ const Analytics = () => {
       const [earningsRes, usersRes, tuitionsRes] = await Promise.all([
         api.get('/payments/platform-earnings'),
         api.get('/users'),
-        api.get('/tuitions/pending')
+        api.get('/tuitions/pending'),
       ]);
 
       const stats = earningsRes.data.stats || {};
@@ -35,7 +35,7 @@ const Analytics = () => {
         totalTransactions: stats.totalTransactions || 0,
         avgTransaction: stats.averageTransaction || 0,
         totalUsers: usersRes.data.users?.length || 0,
-        totalTuitions: tuitionsRes.data.tuitions?.length || 0
+        totalTuitions: tuitionsRes.data.tuitions?.length || 0,
       });
 
       setPayments(earningsRes.data.payments || []);
@@ -61,31 +61,35 @@ const Analytics = () => {
 
       {/* Revenue Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="card bg-gradient-to-br from-primary to-primary/70 text-primary-content">
+        <div className="card bg-linear-to-br from-primary to-primary/70 text-primary-content">
           <div className="card-body">
             <div className="flex justify-between items-start">
               <div>
                 <h2 className="card-title text-sm opacity-90">Total Revenue</h2>
-                <p className="text-3xl font-bold mt-2">৳{analytics.totalRevenue.toLocaleString()}</p>
+                <p className="text-3xl font-bold mt-2">
+                  ৳{analytics.totalRevenue.toLocaleString()}
+                </p>
               </div>
               <FaMoneyBillWave className="text-4xl opacity-50" />
             </div>
           </div>
         </div>
 
-        <div className="card bg-gradient-to-br from-success to-success/70 text-success-content">
+        <div className="card bg-linear-to-br from-success to-success/70 text-success-content">
           <div className="card-body">
             <div className="flex justify-between items-start">
               <div>
                 <h2 className="card-title text-sm opacity-90">Platform Fees (5%)</h2>
-                <p className="text-3xl font-bold mt-2">৳{analytics.platformFees.toLocaleString()}</p>
+                <p className="text-3xl font-bold mt-2">
+                  ৳{analytics.platformFees.toLocaleString()}
+                </p>
               </div>
               <FaChartLine className="text-4xl opacity-50" />
             </div>
           </div>
         </div>
 
-        <div className="card bg-gradient-to-br from-secondary to-secondary/70 text-secondary-content">
+        <div className="card bg-linear-to-br from-secondary to-secondary/70 text-secondary-content">
           <div className="card-body">
             <div className="flex justify-between items-start">
               <div>
@@ -97,12 +101,14 @@ const Analytics = () => {
           </div>
         </div>
 
-        <div className="card bg-gradient-to-br from-accent to-accent/70 text-accent-content">
+        <div className="card bg-linear-to-br from-accent to-accent/70 text-accent-content">
           <div className="card-body">
             <div className="flex justify-between items-start">
               <div>
                 <h2 className="card-title text-sm opacity-90">Avg Transaction</h2>
-                <p className="text-3xl font-bold mt-2">৳{Math.round(analytics.avgTransaction).toLocaleString()}</p>
+                <p className="text-3xl font-bold mt-2">
+                  ৳{Math.round(analytics.avgTransaction).toLocaleString()}
+                </p>
               </div>
               <FaMoneyBillWave className="text-4xl opacity-50" />
             </div>
@@ -136,7 +142,10 @@ const Analytics = () => {
                   <span className="font-semibold">Revenue per User</span>
                 </div>
                 <span className="text-2xl font-bold">
-                  ৳{analytics.totalUsers > 0 ? Math.round(analytics.totalRevenue / analytics.totalUsers).toLocaleString() : 0}
+                  ৳
+                  {analytics.totalUsers > 0
+                    ? Math.round(analytics.totalRevenue / analytics.totalUsers).toLocaleString()
+                    : 0}
                 </span>
               </div>
             </div>
@@ -152,20 +161,22 @@ const Analytics = () => {
                   <span>Platform Fees (5%)</span>
                   <span className="font-bold">৳{analytics.platformFees.toLocaleString()}</span>
                 </div>
-                <progress 
-                  className="progress progress-success" 
-                  value={analytics.platformFees} 
+                <progress
+                  className="progress progress-success"
+                  value={analytics.platformFees}
                   max={analytics.totalRevenue}
                 ></progress>
               </div>
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Tutor Earnings (95%)</span>
-                  <span className="font-bold">৳{(analytics.totalRevenue - analytics.platformFees).toLocaleString()}</span>
+                  <span className="font-bold">
+                    ৳{(analytics.totalRevenue - analytics.platformFees).toLocaleString()}
+                  </span>
                 </div>
-                <progress 
-                  className="progress progress-primary" 
-                  value={analytics.totalRevenue - analytics.platformFees} 
+                <progress
+                  className="progress progress-primary"
+                  value={analytics.totalRevenue - analytics.platformFees}
                   max={analytics.totalRevenue}
                 ></progress>
               </div>
@@ -184,9 +195,7 @@ const Analytics = () => {
         <div className="card-body">
           <h2 className="card-title mb-4">Recent Transactions</h2>
           {payments.length === 0 ? (
-            <div className="text-center py-10 text-gray-500">
-              No transactions yet
-            </div>
+            <div className="text-center py-10 text-gray-500">No transactions yet</div>
           ) : (
             <div className="overflow-x-auto">
               <table className="table table-zebra">
@@ -214,7 +223,11 @@ const Analytics = () => {
                       <td className="font-bold">৳{payment.amount?.toLocaleString()}</td>
                       <td className="text-success">৳{payment.platformFee?.toLocaleString()}</td>
                       <td>
-                        <div className={`badge ${payment.status === 'Completed' ? 'badge-success' : 'badge-warning'}`}>
+                        <div
+                          className={`badge ${
+                            payment.status === 'Completed' ? 'badge-success' : 'badge-warning'
+                          }`}
+                        >
                           {payment.status}
                         </div>
                       </td>
