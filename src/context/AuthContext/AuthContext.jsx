@@ -9,9 +9,9 @@ import {
   updateProfile,
 } from 'firebase/auth';
 
-import api from '../utils/api';
 import toast from 'react-hot-toast';
 import { auth } from '../../config/firebase.config';
+import api from '../../utils/api';
 
 export const AuthContext = createContext();
 
