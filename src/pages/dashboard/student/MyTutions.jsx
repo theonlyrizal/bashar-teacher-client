@@ -68,7 +68,7 @@ const MyTuitions = () => {
     const badges = {
       Pending: 'badge-warning',
       Approved: 'badge-success',
-      Rejected: 'badge-error'
+      Rejected: 'badge-error',
     };
     return badges[status] || 'badge-ghost';
   };
@@ -181,85 +181,121 @@ const MyTuitions = () => {
             <form onSubmit={handleUpdate}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="form-control">
-                  <label className="label"><span className="label-text">Subject *</span></label>
+                  <label className="label">
+                    <span className="label-text">Subject *</span>
+                  </label>
                   <input
                     type="text"
                     className="input input-bordered"
                     value={editingTuition.subject}
-                    onChange={(e) => setEditingTuition({ ...editingTuition, subject: e.target.value })}
+                    onChange={(e) =>
+                      setEditingTuition({ ...editingTuition, subject: e.target.value })
+                    }
                     required
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label"><span className="label-text">Class *</span></label>
+                  <label className="label">
+                    <span className="label-text">Class *</span>
+                  </label>
                   <input
                     type="text"
                     className="input input-bordered"
                     value={editingTuition.class}
-                    onChange={(e) => setEditingTuition({ ...editingTuition, class: e.target.value })}
+                    onChange={(e) =>
+                      setEditingTuition({ ...editingTuition, class: e.target.value })
+                    }
                     required
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label"><span className="label-text">Location *</span></label>
+                  <label className="label">
+                    <span className="label-text">Location *</span>
+                  </label>
                   <input
                     type="text"
                     className="input input-bordered"
                     value={editingTuition.location}
-                    onChange={(e) => setEditingTuition({ ...editingTuition, location: e.target.value })}
+                    onChange={(e) =>
+                      setEditingTuition({ ...editingTuition, location: e.target.value })
+                    }
                     required
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label"><span className="label-text">Budget (৳/month) *</span></label>
+                  <label className="label">
+                    <span className="label-text">Budget (৳/month) *</span>
+                  </label>
                   <input
                     type="number"
                     className="input input-bordered"
                     value={editingTuition.budget}
-                    onChange={(e) => setEditingTuition({ ...editingTuition, budget: e.target.value })}
+                    onChange={(e) =>
+                      setEditingTuition({ ...editingTuition, budget: e.target.value })
+                    }
                     required
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label"><span className="label-text">Schedule *</span></label>
+                  <label className="label">
+                    <span className="label-text">Schedule *</span>
+                  </label>
                   <input
                     type="text"
                     className="input input-bordered"
                     value={editingTuition.schedule}
-                    onChange={(e) => setEditingTuition({ ...editingTuition, schedule: e.target.value })}
+                    onChange={(e) =>
+                      setEditingTuition({ ...editingTuition, schedule: e.target.value })
+                    }
                     required
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label"><span className="label-text">Duration *</span></label>
+                  <label className="label">
+                    <span className="label-text">Duration *</span>
+                  </label>
                   <input
                     type="text"
                     className="input input-bordered"
                     value={editingTuition.duration}
-                    onChange={(e) => setEditingTuition({ ...editingTuition, duration: e.target.value })}
+                    onChange={(e) =>
+                      setEditingTuition({ ...editingTuition, duration: e.target.value })
+                    }
                     required
                   />
                 </div>
               </div>
               <div className="form-control mt-4">
-                <label className="label"><span className="label-text">Requirements</span></label>
+                <label className="label">
+                  <span className="label-text">Requirements</span>
+                </label>
                 <textarea
                   className="textarea textarea-bordered h-24"
                   value={editingTuition.requirements || ''}
-                  onChange={(e) => setEditingTuition({ ...editingTuition, requirements: e.target.value })}
+                  onChange={(e) =>
+                    setEditingTuition({ ...editingTuition, requirements: e.target.value })
+                  }
                 />
               </div>
               <div className="form-control mt-4">
-                <label className="label"><span className="label-text">Contact Info</span></label>
+                <label className="label">
+                  <span className="label-text">Contact Info</span>
+                </label>
                 <input
                   type="text"
                   className="input input-bordered"
                   value={editingTuition.contactInfo || ''}
-                  onChange={(e) => setEditingTuition({ ...editingTuition, contactInfo: e.target.value })}
+                  onChange={(e) =>
+                    setEditingTuition({ ...editingTuition, contactInfo: e.target.value })
+                  }
                 />
               </div>
               <div className="modal-action">
-                <button type="button" onClick={() => setShowEditModal(false)} className="btn btn-ghost">
+                <button
+                  type="button"
+                  onClick={() => setShowEditModal(false)}
+                  className="btn btn-ghost"
+                >
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary">
