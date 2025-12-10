@@ -1,16 +1,17 @@
 import { createContext, useState, useEffect } from 'react';
-import { 
+import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
-  updateProfile
+  updateProfile,
 } from 'firebase/auth';
-import { auth } from '../config/firebase.config';
+
 import api from '../utils/api';
 import toast from 'react-hot-toast';
+import { auth } from '../../config/firebase.config';
 
 export const AuthContext = createContext();
 
@@ -24,10 +25,10 @@ const AuthProvider = ({ children }) => {
     try {
       // Create Firebase account
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      
+
       // Update profile with display name
       await updateProfile(userCredential.user, {
-        displayName: name
+        displayName: name,
       });
 
       // Register in backend
@@ -37,7 +38,7 @@ const AuthProvider = ({ children }) => {
         role,
         phone,
         photoURL: userCredential.user.photoURL || 'https://i.ibb.co/4pDNDk1/avatar.png',
-        firebaseUid: userCredential.user.uid
+        firebaseUid: userCredential.user.uid,
       });
 
       if (response.data.success) {
@@ -65,7 +66,7 @@ const AuthProvider = ({ children }) => {
       // Login to backend
       const response = await api.post('/auth/login', {
         email,
-        firebaseUid: userCredential.user.uid
+        firebaseUid: userCredential.user.uid,
       });
 
       if (response.data.success) {
@@ -89,12 +90,12 @@ const AuthProvider = ({ children }) => {
     try {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
-      
+
       // Check if user exists in backend
       try {
         const loginResponse = await api.post('/auth/login', {
           email: userCredential.user.email,
-          firebaseUid: userCredential.user.uid
+          firebaseUid: userCredential.user.uid,
         });
 
         if (loginResponse.data.success) {
@@ -114,7 +115,7 @@ const AuthProvider = ({ children }) => {
             role: 'Student', // Default role for Google login
             phone: '',
             photoURL: userCredential.user.photoURL,
-            firebaseUid: userCredential.user.uid
+            firebaseUid: userCredential.user.uid,
           });
 
           if (registerResponse.data.success) {
@@ -211,14 +212,10 @@ const AuthProvider = ({ children }) => {
     loginWithEmail,
     loginWithGoogle,
     logout,
-    updateUserProfile
+    updateUserProfile,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
