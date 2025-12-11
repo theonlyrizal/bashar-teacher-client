@@ -90,44 +90,20 @@ const AuthProvider = ({ children }) => {
     try {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
+      const token = await userCredential.user.getIdToken();
 
-      // Check if user exists in backend
-      try {
-        const loginResponse = await api.post('/auth/login', {
-          email: userCredential.user.email,
-          firebaseUid: userCredential.user.uid,
-        });
+      // Send to backend
+      const response = await api.post('/auth/google', {
+        token,
+      });
 
-        if (loginResponse.data.success) {
-          localStorage.setItem('token', loginResponse.data.token);
-          localStorage.setItem('user', JSON.stringify(loginResponse.data.user));
-          setToken(loginResponse.data.token);
-          setUser(loginResponse.data.user);
-          toast.success('Login successful!');
-          return loginResponse.data;
-        }
-      } catch (loginError) {
-        // User doesn't exist, register them
-        if (loginError.response?.status === 404) {
-          const registerResponse = await api.post('/auth/register', {
-            name: userCredential.user.displayName || 'User',
-            email: userCredential.user.email,
-            role: 'Student', // Default role for Google login
-            phone: '',
-            photoURL: userCredential.user.photoURL,
-            firebaseUid: userCredential.user.uid,
-          });
-
-          if (registerResponse.data.success) {
-            localStorage.setItem('token', registerResponse.data.token);
-            localStorage.setItem('user', JSON.stringify(registerResponse.data.user));
-            setToken(registerResponse.data.token);
-            setUser(registerResponse.data.user);
-            toast.success('Account created successfully!');
-            return registerResponse.data;
-          }
-        }
-        throw loginError;
+      if (response.data.success) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        setToken(response.data.token);
+        setUser(response.data.user);
+        toast.success('Login successful!');
+        return response.data;
       }
     } catch (error) {
       console.error('Google login error:', error);
