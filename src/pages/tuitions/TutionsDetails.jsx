@@ -1,15 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaDollarSign, FaClock, FaBook, FaUser, FaPhone } from 'react-icons/fa';
-import api from '../../utils/api';
 import useAuth from '../../hooks/useAuth';
 import toast from 'react-hot-toast';
+import { TuitionContext } from '../../context/TuitionContext/TuitionContext';
+import { TutorContext } from '../../context/TutorContext/TutorContext';
 
 const TuitionDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { getTuition } = useContext(TuitionContext);
+  const { applyForTuition } = useContext(TutorContext);
+
   const [tuition, setTuition] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showApplyModal, setShowApplyModal] = useState(false);
@@ -26,17 +30,12 @@ const TuitionDetails = () => {
   }, [id]);
 
   const fetchTuitionDetails = async () => {
-    try {
-      const response = await api.get(`/tuitions/${id}`);
-      if (response.data.success) {
-        setTuition(response.data.tuition);
-      }
-    } catch (error) {
-      console.error('Error fetching tuition:', error);
-      toast.error('Failed to load tuition details');
-    } finally {
-      setLoading(false);
+    setLoading(true);
+    const data = await getTuition(id);
+    if (data.tuition) {
+      setTuition(data.tuition);
     }
+    setLoading(false);
   };
 
   const handleApplyClick = () => {
@@ -56,28 +55,24 @@ const TuitionDetails = () => {
     e.preventDefault();
     setSubmitting(true);
 
-    try {
-      const response = await api.post('/applications', {
-        tuitionId: id,
-        ...applicationData,
-      });
+    const result = await applyForTuition({
+      tuitionId: id,
+      ...applicationData,
+    });
 
-      if (response.data.success) {
-        toast.success('Application submitted successfully!');
-        setShowApplyModal(false);
-        setApplicationData({
-          qualifications: '',
-          experience: '',
-          expectedSalary: '',
-          message: '',
-        });
-      }
-    } catch (error) {
-      console.error('Application error:', error);
-      toast.error(error.response?.data?.message || 'Failed to submit application');
-    } finally {
-      setSubmitting(false);
+    if (result.success) {
+      toast.success('Application submitted successfully!');
+      setShowApplyModal(false);
+      setApplicationData({
+        qualifications: '',
+        experience: '',
+        expectedSalary: '',
+        message: '',
+      });
+    } else {
+      toast.error(result.message || 'Failed to submit application');
     }
+    setSubmitting(false);
   };
 
   if (loading) {

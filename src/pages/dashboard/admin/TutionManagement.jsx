@@ -1,61 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaTimesCircle, FaEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import api from '../../../utils/api';
 import toast from 'react-hot-toast';
+import { AdminContext } from '../../../context/AdminContext/AdminContext';
 
 const TuitionManagement = () => {
-  const [tuitions, setTuitions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { adminTuitions: tuitions, loading, fetchAdminTuitions, updateTuitionStatus } = useContext(AdminContext);
   const [filter, setFilter] = useState('Pending');
 
   useEffect(() => {
-    fetchTuitions();
+    fetchAdminTuitions();
   }, []);
-
-  const fetchTuitions = async () => {
-    try {
-      const response = await api.get('/tuitions/pending');
-      if (response.data.success) {
-        setTuitions(response.data.tuitions);
-      }
-    } catch (error) {
-      console.error('Error fetching tuitions:', error);
-      toast.error('Failed to load tuitions');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleApprove = async (tuitionId) => {
     if (!window.confirm('Approve this tuition posting?')) return;
-
-    try {
-      const response = await api.patch(`/tuitions/${tuitionId}/status`, { status: 'Approved' });
-      if (response.data.success) {
-        toast.success('Tuition approved');
-        fetchTuitions();
-      }
-    } catch (error) {
-      console.error('Approve error:', error);
-      toast.error('Failed to approve tuition');
-    }
+    await updateTuitionStatus(tuitionId, 'Approved');
   };
 
   const handleReject = async (tuitionId) => {
     if (!window.confirm('Reject this tuition posting? The student will be notified.')) return;
-
-    try {
-      const response = await api.patch(`/tuitions/${tuitionId}/status`, { status: 'Rejected' });
-      if (response.data.success) {
-        toast.success('Tuition rejected');
-        fetchTuitions();
-      }
-    } catch (error) {
-      console.error('Reject error:', error);
-      toast.error('Failed to reject tuition');
-    }
+    await updateTuitionStatus(tuitionId, 'Rejected');
   };
 
   const getStatusBadge = (status) => {
@@ -67,9 +32,13 @@ const TuitionManagement = () => {
     return badges[status] || 'badge-ghost';
   };
 
-  const filteredTuitions = filter === 'All' 
-    ? tuitions 
-    : tuitions.filter(t => t.status === filter);
+  const filteredTuitions = mb_filter(tuitions);
+
+  function mb_filter(ts) {
+    if (!ts) return [];
+    if (filter === 'All') return ts;
+    return ts.filter(t => t.status === filter);
+  }
 
   if (loading) {
     return (
@@ -88,19 +57,19 @@ const TuitionManagement = () => {
         <div className="card bg-warning text-warning-content">
           <div className="card-body">
             <h2 className="card-title text-sm">Pending Review</h2>
-            <p className="text-3xl font-bold">{tuitions.filter(t => t.status === 'Pending').length}</p>
+            <p className="text-3xl font-bold">{tuitions ? tuitions.filter(t => t.status === 'Pending').length : 0}</p>
           </div>
         </div>
         <div className="card bg-success text-success-content">
           <div className="card-body">
             <h2 className="card-title text-sm">Approved</h2>
-            <p className="text-3xl font-bold">{tuitions.filter(t => t.status === 'Approved').length}</p>
+            <p className="text-3xl font-bold">{tuitions ? tuitions.filter(t => t.status === 'Approved').length : 0}</p>
           </div>
         </div>
         <div className="card bg-error text-error-content">
           <div className="card-body">
             <h2 className="card-title text-sm">Rejected</h2>
-            <p className="text-3xl font-bold">{tuitions.filter(t => t.status === 'Rejected').length}</p>
+            <p className="text-3xl font-bold">{tuitions ? tuitions.filter(t => t.status === 'Rejected').length : 0}</p>
           </div>
         </div>
       </div>

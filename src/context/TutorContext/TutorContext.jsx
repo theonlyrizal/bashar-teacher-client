@@ -36,6 +36,20 @@ const TutorProvider = ({ children }) => {
     }
   };
 
+  // Get Single Tutor Public Profile
+  const getTutor = async (id) => {
+    setLoading(true);
+    try {
+      const response = await api.get(`/tutors/${id}`);
+      return { success: true, tutor: response.data };
+    } catch (error) {
+      console.error('Error fetching tutor:', error);
+      return { success: false, tutor: null };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Fetch My Applications (Tutor Only)
   const fetchMyApplications = async () => {
     if (user?.role !== 'Tutor') return;
@@ -99,6 +113,22 @@ const TutorProvider = ({ children }) => {
       }
   };
 
+  const applyForTuition = async (applicationData) => {
+      try {
+          const response = await api.post('/applications', applicationData);
+          if (response.data.success || response.data.insertedId) {
+              // toast.success('Application submitted successfully!'); // Let component handle success toast or do it here
+              // fetchMyApplications(); // Optional, if we want to update the list immediately
+              return { success: true };
+          }
+          return { success: false, message: response.data.message };
+      } catch (error) {
+          console.error('Application error:', error);
+          // toast.error(error.response?.data?.message || 'Failed to submit application');
+          return { success: false, error };
+      }
+  };
+
   const value = {
     tutors,
     myApplications,
@@ -107,8 +137,12 @@ const TutorProvider = ({ children }) => {
     fetchTutors,
     fetchMyApplications,
     fetchMyRevenue,
+    fetchMyRevenue,
+    fetchMyRevenue,
     updateApplication,
-    deleteApplication
+    deleteApplication,
+    applyForTuition,
+    getTutor
   };
 
   return <TutorContext.Provider value={value}>{children}</TutorContext.Provider>;

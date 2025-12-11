@@ -34,6 +34,38 @@ const TuitionProvider = ({ children }) => {
     }
   };
 
+  // Fetch Public Tuitions (With Params)
+  // This does NOT set the main 'tuitions' state because that's for "My Tuitions"
+  // Instead it returns the result to the caller (Listing Page)
+  const fetchTuitions = async (params) => {
+    setLoading(true);
+    try {
+      const response = await api.get('/tuitions', { params });
+      return response.data; // { tuitions, pagination }
+    } catch (error) {
+      console.error('Error fetching tuitions:', error);
+      return { success: false, tuitions: [], pagination: {} };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Get Single Tuition
+  const getTuition = async (id) => {
+    setLoading(true);
+    try {
+      const response = await api.get(`/tuitions/${id}`);
+      // Fix: TutionsDetails expects { tuition: ... } structure, but server returns object directly
+      // So we wrap it here to be consistent with the catch block and component expectation
+      return { success: true, tuition: response.data }; 
+    } catch (error) {
+      console.error('Error fetching tuition:', error);
+      return { success: false, tuition: null };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Post Tuition
   const postTuition = async (tuitionData) => {
     try {
@@ -98,6 +130,8 @@ const TuitionProvider = ({ children }) => {
     tuitions,
     loading,
     fetchMyTuitions,
+    fetchTuitions,
+    getTuition,
     postTuition,
     updateTuition,
     deleteTuition

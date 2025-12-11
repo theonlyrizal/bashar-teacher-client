@@ -9,6 +9,7 @@ import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import ErrorPage from '../pages/error/ErrorPage';
 import Tutors from '../pages/tutors/Tutors';
+import TutorDetails from '../pages/tutors/TutorDetails';
 import About from '../pages/about/About';
 import Contact from '../pages/contact/Contact';
 import TuitionsListing from '../pages/tuitions/TutionListings';
@@ -60,6 +61,10 @@ export const routes = createBrowserRouter([
       {
         path: '/tutors',
         element: <Tutors />,
+      },
+      {
+        path: '/tutors/:id',
+        element: <TutorDetails />,
       },
       {
         path: '/about',

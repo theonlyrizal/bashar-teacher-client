@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaSearch, FaFilter, FaSort } from 'react-icons/fa';
-import api from '../../utils/api';
+import { TuitionContext } from '../../context/TuitionContext/TuitionContext';
 import { CLASSES, SUBJECTS, DIVISIONS } from '../../utils/constants';
 
 const TuitionsListing = () => {
+  const { fetchTuitions } = useContext(TuitionContext);
   const [tuitions, setTuitions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -24,10 +25,10 @@ const TuitionsListing = () => {
   });
 
   useEffect(() => {
-    fetchTuitions();
+    loadTuitions();
   }, [pagination.page, search, filters, sortBy, sortOrder]);
 
-  const fetchTuitions = async () => {
+  const loadTuitions = async () => {
     setLoading(true);
     try {
       const params = {
@@ -39,11 +40,14 @@ const TuitionsListing = () => {
         ...filters
       };
 
-      const response = await api.get('/tuitions', { params });
+      const data = await fetchTuitions(params);
 
-      if (response.data.success) {
-        setTuitions(response.data.tuitions);
-        setPagination(response.data.pagination);
+      if (data.tuitions) {
+        setTuitions(data.tuitions);
+        setPagination({
+            ...pagination,
+            ...data.pagination
+        });
       }
     } catch (error) {
       console.error('Error fetching tuitions:', error);
