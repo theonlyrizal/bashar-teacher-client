@@ -11,7 +11,7 @@ const About = () => {
                 className="text-center mb-16"
             >
                 <h1 className="text-4xl font-bold text-primary mb-4">About Bashar Teacher</h1>
-                <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                <p className="text-xl text-base-content/70 max-w-2xl mx-auto">
                     Connecting students with the best tutors across Bangladesh. We are dedicated to making quality education accessible to everyone.
                 </p>
             </motion.div>
@@ -34,10 +34,10 @@ const About = () => {
                     transition={{ delay: 0.2, duration: 0.5 }}
                 >
                     <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
-                    <p className="text-gray-600 mb-4 text-lg">
+                    <p className="text-base-content/70 mb-4 text-lg">
                         At Bashar Teacher, we believe that personalized learning is the key to academic success. Our platform serves as a bridge between ambitious students and experienced tutors.
                     </p>
-                    <p className="text-gray-600 text-lg">
+                    <p className="text-base-content/70 text-lg">
                         We strive to provide a safe, transparent, and efficient environment where knowledge sharing flourishes. Whether you're looking to master a new subject or share your expertise, we're here to support your journey.
                     </p>
                 </motion.div>
@@ -57,7 +57,7 @@ const About = () => {
                             🎯
                         </div>
                         <h3 className="text-xl font-bold mb-2">Verified Tutors</h3>
-                        <p className="text-gray-500">
+                        <p className="text-base-content/60">
                             Every tutor on our platform undergoes a strict verification process to ensure quality and safety.
                         </p>
                     </div>
@@ -66,7 +66,7 @@ const About = () => {
                             🚀
                         </div>
                         <h3 className="text-xl font-bold mb-2">Easy Connections</h3>
-                        <p className="text-gray-500">
+                        <p className="text-base-content/60">
                             Find the perfect tutor in minutes with our advanced search and filtering system.
                         </p>
                     </div>
@@ -75,7 +75,7 @@ const About = () => {
                             💳
                         </div>
                         <h3 className="text-xl font-bold mb-2">Secure Payments</h3>
-                        <p className="text-gray-500">
+                        <p className="text-base-content/60">
                             Our integrated payment system ensures that your transactions are safe and hassle-free.
                         </p>
                     </div>

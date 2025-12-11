@@ -30,8 +30,8 @@ const Home = () => {
         api.get('/users/tutors/latest').catch(() => ({ data: { tutors: [] } })),
       ]);
 
-      setLatestTuitions(tuitionsRes.data.tuitions || []);
-      setLatestTutors(tutorsRes.data.tutors || []);
+      setLatestTuitions(Array.isArray(tuitionsRes.data) ? tuitionsRes.data : tuitionsRes.data.tuitions || []);
+      setLatestTutors(Array.isArray(tutorsRes.data) ? tutorsRes.data : tutorsRes.data.tutors || []);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -91,7 +91,7 @@ const Home = () => {
               Find Your Perfect Match
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="text-xl md:text-2xl text-gray-600 mb-8">
+            <motion.p variants={itemVariants} className="text-xl md:text-2xl text-base-content/70 mb-8">
               Connect with qualified tutors or discover exciting tuition opportunities across
               Bangladesh
             </motion.p>
@@ -120,7 +120,7 @@ const Home = () => {
               ].map((stat, index) => (
                 <div key={index} className="bg-white/50 backdrop-blur-sm rounded-lg p-6 shadow-lg">
                   <div className="text-3xl font-bold text-primary">{stat.value}</div>
-                  <div className="text-sm text-gray-600 mt-1">{stat.label}</div>
+                  <div className="text-sm text-base-content/70 mt-1">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -239,7 +239,7 @@ const Home = () => {
                     <div className="card-body items-center text-center">
                       <h3 className="card-title">{tutor.name}</h3>
                       <div className="badge badge-primary">{tutor.role}</div>
-                      <p className="text-sm text-gray-600">{tutor.email}</p>
+                      <p className="text-sm text-base-content/70">{tutor.email}</p>
                       {tutor.isVerified && (
                         <div className="badge badge-success gap-2">
                           <FaCheckCircle /> Verified
@@ -255,7 +255,7 @@ const Home = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center text-gray-500 py-12">
+              <div className="text-center text-base-content/60 py-12">
                 <p className="text-lg">No tutors available yet.</p>
               </div>
             )}
@@ -281,7 +281,7 @@ const Home = () => {
             variants={fadeInUp}
           >
             <h2 className="text-4xl font-bold text-center mb-4">How Bashar Teacher Works</h2>
-            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-base-content/70 mb-12 max-w-2xl mx-auto">
               Simple, transparent, and efficient process to connect students with tutors
             </p>
 
@@ -320,7 +320,7 @@ const Home = () => {
                     </div>
                   </div>
                   <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
+                  <p className="text-base-content/70">{step.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -338,7 +338,7 @@ const Home = () => {
             variants={fadeInUp}
           >
             <h2 className="text-4xl font-bold text-center mb-4">Why Choose Bashar Teacher?</h2>
-            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-base-content/70 mb-12 max-w-2xl mx-auto">
               We provide a secure, efficient, and trusted platform for quality education
             </p>
 
@@ -377,7 +377,7 @@ const Home = () => {
                   <div className="card-body items-center text-center">
                     <div className="mb-4">{feature.icon}</div>
                     <h3 className="card-title text-lg">{feature.title}</h3>
-                    <p className="text-sm text-gray-600">{feature.description}</p>
+                    <p className="text-sm text-base-content/70">{feature.description}</p>
                   </div>
                 </motion.div>
               ))}

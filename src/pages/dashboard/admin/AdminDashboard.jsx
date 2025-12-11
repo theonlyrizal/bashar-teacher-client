@@ -54,42 +54,42 @@ const AdminDashboard = () => {
       title: 'Total Users',
       value: stats.totalUsers,
       icon: <FaUsers className="text-4xl" />,
-      color: 'bg-primary',
+      color: 'text-primary',
       link: '/dashboard/admin/users',
     },
     {
       title: 'Students',
       value: stats.totalStudents,
       icon: <FaUsers className="text-4xl" />,
-      color: 'bg-info',
+      color: 'text-info',
       link: '/dashboard/admin/users',
     },
     {
       title: 'Tutors',
       value: stats.totalTutors,
       icon: <FaUsers className="text-4xl" />,
-      color: 'bg-secondary',
+      color: 'text-secondary',
       link: '/dashboard/admin/users',
     },
     {
       title: 'Pending Tuitions',
       value: stats.pendingTuitions,
       icon: <FaBook className="text-4xl" />,
-      color: 'bg-warning',
+      color: 'text-warning',
       link: '/dashboard/admin/tuitions',
     },
     {
       title: 'Total Tuitions',
       value: stats.totalTuitions,
       icon: <FaCheckCircle className="text-4xl" />,
-      color: 'bg-success',
+      color: 'text-success',
       link: '/dashboard/admin/tuitions',
     },
     {
       title: 'Platform Revenue',
       value: `৳${stats.platformRevenue.toLocaleString()}`,
       icon: <FaMoneyBillWave className="text-4xl" />,
-      color: 'bg-accent',
+      color: 'text-accent',
       link: '/dashboard/admin/analytics',
     },
   ];
@@ -98,7 +98,7 @@ const AdminDashboard = () => {
     <div className="container mx-auto px-4 py-8">
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
-        <p className="text-gray-600">
+        <p className="text-base-content/70">
           Manage users, approve tuitions, and monitor platform performance
         </p>
       </motion.div>
@@ -114,17 +114,17 @@ const AdminDashboard = () => {
           >
             <Link
               to={stat.link}
-              className={`card ${stat.color} text-white shadow-xl hover:shadow-2xl transition-all`}
+              className={`card shadow-xl hover:shadow-2xl transition-all`}
             >
               <div className="card-body">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h2 className="card-title text-white/90 text-sm">{stat.title}</h2>
-                    <p className="text-4xl font-bold mt-2">
+                    <h2 className="card-title text-base-content/70 text-sm">{stat.title}</h2>
+                    <p className={`text-4xl font-bold mt-2 ${stat.color}`}>
                       {loading ? <span className="loading loading-spinner"></span> : stat.value}
                     </p>
                   </div>
-                  <div className="opacity-50">{stat.icon}</div>
+                  <div className={`${stat.color} opacity-80`}>{stat.icon}</div>
                 </div>
               </div>
             </Link>

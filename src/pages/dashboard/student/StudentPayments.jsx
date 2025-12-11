@@ -88,9 +88,9 @@ const StudentPayments = () => {
       {/* Payments Table */}
       {payments.length === 0 ? (
         <div className="text-center py-20 bg-base-200 rounded-lg">
-          <FaReceipt className="text-6xl text-gray-400 mx-auto mb-4" />
+          <FaReceipt className="text-6xl text-base-content/20 mx-auto mb-4" />
           <h3 className="text-2xl font-semibold mb-2">No Payments Yet</h3>
-          <p className="text-gray-600">Your payment history will appear here</p>
+          <p className="text-base-content/60">Your payment history will appear here</p>
         </div>
       ) : (
         <div className="card bg-base-100 shadow-xl">
@@ -128,13 +128,13 @@ const StudentPayments = () => {
                           </div>
                           <div>
                             <div className="font-semibold">{payment.tutorId?.name}</div>
-                            <div className="text-sm text-gray-600">{payment.tutorId?.email}</div>
+                            <div className="text-sm text-base-content/60">{payment.tutorId?.email}</div>
                           </div>
                         </div>
                       </td>
                       <td>
                         <div className="font-semibold">{payment.tuitionId?.subject}</div>
-                        <div className="text-sm text-gray-600">{payment.tuitionId?.class}</div>
+                        <div className="text-sm text-base-content/60">{payment.tuitionId?.class}</div>
                       </td>
                       <td className="font-bold text-success">৳{payment.amount.toLocaleString()}</td>
                       <td className="text-sm font-mono">{payment.transactionId}</td>

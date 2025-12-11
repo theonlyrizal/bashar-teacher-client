@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import logo from '../../assets/images/basharTeacherLogo.png';
 
 const Navbar = () => {
   const { user, logout, loading } = useAuth();
@@ -46,7 +47,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar sticky top-2 z-50 rounded-full w-[95%] md:w-[90%] mx-auto">
+    <div className="navbar !overflow-visible sticky top-2 z-50 rounded-full w-[95%] md:w-[90%] mx-auto">
       <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -76,9 +77,14 @@ const Navbar = () => {
           </div>
           <Link
             to="/"
-            className="btn btn-ghost text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary"
+            className="btn btn-ghost text-2xl font-bold flex items-center gap-2 relative"
           >
-            বাসার Teacher
+            <div className="absolute -left-2 -top-2 w-16 h-16 rounded-full border-4 border-base-100 shadow-lg overflow-hidden shrink-0">
+               <img src={logo} alt="Bashar Teacher Logo" className="w-full h-full object-cover" />
+            </div>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary ml-14">
+              বাসার Teacher
+            </span>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

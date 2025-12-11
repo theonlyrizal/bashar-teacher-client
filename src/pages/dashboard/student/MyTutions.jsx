@@ -58,7 +58,7 @@ const MyTuitions = () => {
       {tuitions.length === 0 ? (
         <div className="text-center py-20 bg-base-200 rounded-lg">
           <h3 className="text-2xl font-semibold mb-4">No Tuitions Posted Yet</h3>
-          <p className="text-gray-600 mb-6">Start by posting your first tuition requirement</p>
+          <p className="text-base-content/70 mb-6">Start by posting your first tuition requirement</p>
           <Link to="/dashboard/student/post-tuition" className="btn btn-primary">
             <FaPlus className="mr-2" /> Post Your First Tuition
           </Link>
@@ -77,7 +77,7 @@ const MyTuitions = () => {
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <h2 className="card-title text-2xl text-primary">{tuition.title || tuition.subject}</h2>
-                    <p className="text-sm font-semibold text-gray-500 mb-1">{tuition.subject}</p>
+                    <p className="text-sm font-semibold text-base-content/60 mb-1">{tuition.subject}</p>
                     <div className="flex gap-2 mt-2">
                       <div className="badge badge-secondary">{tuition.class}</div>
                       <div className={`badge ${getStatusBadge(tuition.status)}`}>
@@ -87,27 +87,27 @@ const MyTuitions = () => {
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-success">৳{tuition.budget}</div>
-                    <div className="text-sm text-gray-600">per month</div>
+                    <div className="text-sm text-base-content/60">per month</div>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
                   <div>
-                    <span className="text-sm text-gray-600">Location:</span>
+                    <span className="text-sm text-base-content/60">Location:</span>
                     <p className="font-semibold">{tuition.location}</p>
                   </div>
                   <div>
-                    <span className="text-sm text-gray-600">Schedule:</span>
+                    <span className="text-sm text-base-content/60">Schedule:</span>
                     <p className="font-semibold">{tuition.schedule}</p>
                   </div>
                   <div>
-                    <span className="text-sm text-gray-600">Duration:</span>
+                    <span className="text-sm text-base-content/60">Duration:</span>
                     <p className="font-semibold">{tuition.duration}</p>
                   </div>
                 </div>
 
                 {tuition.requirements && (
-                  <p className="text-sm text-gray-700 mt-3 line-clamp-2">
+                  <p className="text-sm text-base-content/70 mt-3 line-clamp-2">
                     <strong>Requirements:</strong> {tuition.requirements}
                   </p>
                 )}

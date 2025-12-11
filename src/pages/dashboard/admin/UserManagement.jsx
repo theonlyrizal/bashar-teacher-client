@@ -38,29 +38,30 @@ const UserManagement = () => {
       <h1 className="text-3xl font-bold mb-6">User Management</h1>
 
       {/* Stats */}
+      {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="card bg-primary text-primary-content">
+        <div className="card shadow-xl hover:shadow-2xl transition-all">
           <div className="card-body">
-            <h2 className="card-title text-sm">Total Users</h2>
-            <p className="text-3xl font-bold">{users.length}</p>
+            <h2 className="card-title text-sm text-base-content/70">Total Users</h2>
+            <p className="text-3xl font-bold text-primary">{users.length}</p>
           </div>
         </div>
-        <div className="card bg-info text-info-content">
+        <div className="card shadow-xl hover:shadow-2xl transition-all">
           <div className="card-body">
-            <h2 className="card-title text-sm">Students</h2>
-            <p className="text-3xl font-bold">{users.filter((u) => u.role === 'Student').length}</p>
+            <h2 className="card-title text-sm text-base-content/70">Students</h2>
+            <p className="text-3xl font-bold text-info">{users.filter((u) => u.role === 'Student').length}</p>
           </div>
         </div>
-        <div className="card bg-secondary text-secondary-content">
+        <div className="card shadow-xl hover:shadow-2xl transition-all">
           <div className="card-body">
-            <h2 className="card-title text-sm">Tutors</h2>
-            <p className="text-3xl font-bold">{users.filter((u) => u.role === 'Tutor').length}</p>
+            <h2 className="card-title text-sm text-base-content/70">Tutors</h2>
+            <p className="text-3xl font-bold text-secondary">{users.filter((u) => u.role === 'Tutor').length}</p>
           </div>
         </div>
-        <div className="card bg-accent text-accent-content">
+        <div className="card shadow-xl hover:shadow-2xl transition-all">
           <div className="card-body">
-            <h2 className="card-title text-sm">Admins</h2>
-            <p className="text-3xl font-bold">{users.filter((u) => u.role === 'Admin').length}</p>
+            <h2 className="card-title text-sm text-base-content/70">Admins</h2>
+            <p className="text-3xl font-bold text-accent">{users.filter((u) => u.role === 'Admin').length}</p>
           </div>
         </div>
       </div>

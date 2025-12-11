@@ -97,7 +97,7 @@ const Login = () => {
                  onChange={(e) => setAdminToken(e.target.value)}
                  required
                />
-               <label className="label text-xs text-gray-500">
+               <label className="label text-xs text-base-content/60">
                   Enter the server-side ADMIN_TOKEN to bypass authentication.
                </label>
             </div>
@@ -126,7 +126,7 @@ const Login = () => {
                   />
                   <button
                     type="button"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-xl text-gray-500 hover:text-gray-700"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-xl text-base-content/50 hover:text-base-content/70"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
@@ -163,7 +163,7 @@ const Login = () => {
                    onChange={(e) => setIsAdminLogin(e.target.checked)} 
                    className="checkbox checkbox-error checkbox-sm"
                  />
-                 <span className={`label-text font-medium ${isAdminLogin ? 'text-error' : 'text-gray-500'}`}>Login as Admin</span>
+                 <span className={`label-text font-medium ${isAdminLogin ? 'text-error' : 'text-base-content/60'}`}>Login as Admin</span>
                </label>
              </div>
           </div>

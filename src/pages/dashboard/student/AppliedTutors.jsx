@@ -158,7 +158,7 @@ const AppliedTutors = () => {
       {applications.length === 0 ? (
         <div className="text-center py-20 bg-base-200 rounded-lg">
           <h3 className="text-2xl font-semibold mb-4">No Applications Yet</h3>
-          <p className="text-gray-600">Tutors will apply to your posted tuitions</p>
+          <p className="text-base-content/60">Tutors will apply to your posted tuitions</p>
         </div>
       ) : tuitionId ? (
         <div className="grid grid-cols-1 gap-6">
@@ -220,9 +220,9 @@ const ApplicationCard = ({ application, index, onAccept, onReject, getStatusBadg
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-xl font-bold">{application.tutor?.name}</h3>
-              <p className="text-sm text-gray-600">{application.tutor?.email}</p>
+              <p className="text-sm text-base-content/60">{application.tutor?.email}</p>
               {application.tutor?.phone && (
-                <p className="text-sm text-gray-600">{application.tutor.phone}</p>
+                <p className="text-sm text-base-content/60">{application.tutor.phone}</p>
               )}
               <div className="mt-2">
                 <div className={`badge ${getStatusBadge(application.status)}`}>
@@ -235,23 +235,23 @@ const ApplicationCard = ({ application, index, onAccept, onReject, getStatusBadg
             </div>
             <div className="text-right">
               <div className="text-2xl font-bold text-success">৳{application.expectedSalary}</div>
-              <div className="text-sm text-gray-600">per month</div>
+              <div className="text-sm text-base-content/60">per month</div>
             </div>
           </div>
 
           <div className="mt-4 space-y-3">
             <div>
               <h4 className="font-semibold mb-1">Qualifications:</h4>
-              <p className="text-gray-700">{application.qualifications}</p>
+              <p className="text-base-content/80">{application.qualifications}</p>
             </div>
             <div>
               <h4 className="font-semibold mb-1">Experience:</h4>
-              <p className="text-gray-700">{application.experience}</p>
+              <p className="text-base-content/80">{application.experience}</p>
             </div>
             {application.message && (
               <div>
                 <h4 className="font-semibold mb-1">Message:</h4>
-                <p className="text-gray-700">{application.message}</p>
+                <p className="text-base-content/80">{application.message}</p>
               </div>
             )}
           </div>

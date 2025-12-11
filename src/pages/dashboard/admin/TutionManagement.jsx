@@ -91,7 +91,7 @@ const TuitionManagement = () => {
       {filteredTuitions.length === 0 ? (
         <div className="text-center py-20 bg-base-200 rounded-lg">
           <h3 className="text-2xl font-semibold mb-2">No {filter} Tuitions</h3>
-          <p className="text-gray-600">No tuitions match the current filter</p>
+          <p className="text-base-content/60">No tuitions match the current filter</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6">
@@ -117,25 +117,25 @@ const TuitionManagement = () => {
                   </div>
                   <div className="text-right">
                     <div className="text-3xl font-bold text-success">৳{tuition.budget}</div>
-                    <div className="text-sm text-gray-600">per month</div>
+                    <div className="text-sm text-base-content/60">per month</div>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                   <div>
-                    <span className="text-sm text-gray-600">Location:</span>
+                    <span className="text-sm text-base-content/60">Location:</span>
                     <p className="font-semibold">{tuition.location}</p>
                   </div>
                   <div>
-                    <span className="text-sm text-gray-600">Schedule:</span>
+                    <span className="text-sm text-base-content/60">Schedule:</span>
                     <p className="font-semibold">{tuition.schedule}</p>
                   </div>
                   <div>
-                    <span className="text-sm text-gray-600">Duration:</span>
+                    <span className="text-sm text-base-content/60">Duration:</span>
                     <p className="font-semibold">{tuition.duration}</p>
                   </div>
                   <div>
-                    <span className="text-sm text-gray-600">Posted:</span>
+                    <span className="text-sm text-base-content/60">Posted:</span>
                     <p className="font-semibold">{new Date(tuition.createdAt).toLocaleDateString()}</p>
                   </div>
                 </div>
@@ -143,7 +143,7 @@ const TuitionManagement = () => {
                 {tuition.requirements && (
                   <div className="mt-4">
                     <h4 className="font-semibold mb-1">Requirements:</h4>
-                    <p className="text-gray-700 text-sm">{tuition.requirements}</p>
+                    <p className="text-base-content/80 text-sm">{tuition.requirements}</p>
                   </div>
                 )}
 
@@ -161,7 +161,7 @@ const TuitionManagement = () => {
                     </div>
                     <div>
                       <div className="font-semibold">{tuition.studentId?.name}</div>
-                      <div className="text-sm text-gray-600">{tuition.studentId?.email}</div>
+                      <div className="text-sm text-base-content/60">{tuition.studentId?.email}</div>
                     </div>
                   </div>
                 </div>

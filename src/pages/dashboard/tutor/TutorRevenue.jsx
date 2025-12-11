@@ -84,9 +84,9 @@ const TutorRevenue = () => {
       {/* Revenue Table */}
       {payments.length === 0 ? (
         <div className="text-center py-20 bg-base-200 rounded-lg">
-          <FaMoneyBillWave className="text-6xl text-gray-400 mx-auto mb-4" />
+          <FaMoneyBillWave className="text-6xl text-base-content/20 mx-auto mb-4" />
           <h3 className="text-2xl font-semibold mb-2">No Revenue Yet</h3>
-          <p className="text-gray-600">Start getting hired to earn revenue</p>
+          <p className="text-base-content/60">Start getting hired to earn revenue</p>
         </div>
       ) : (
         <div className="card bg-base-100 shadow-xl">
@@ -130,13 +130,13 @@ const TutorRevenue = () => {
                           </div>
                           <div>
                             <div className="font-semibold">{payment.studentId?.name}</div>
-                            <div className="text-sm text-gray-600">{payment.studentId?.email}</div>
+                            <div className="text-sm text-base-content/60">{payment.studentId?.email}</div>
                           </div>
                         </div>
                       </td>
                       <td>
                         <div className="font-semibold">{payment.tuitionId?.subject}</div>
-                        <div className="text-sm text-gray-600">{payment.tuitionId?.class}</div>
+                        <div className="text-sm text-base-content/60">{payment.tuitionId?.class}</div>
                       </td>
                       <td className="font-bold">৳{payment.amount?.toLocaleString()}</td>
                       <td className="text-error">-৳{payment.platformFee?.toLocaleString()}</td>

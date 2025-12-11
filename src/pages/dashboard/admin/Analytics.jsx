@@ -158,7 +158,7 @@ const Analytics = () => {
         <div className="card-body">
           <h2 className="card-title mb-4">Recent Transactions</h2>
           {(!adminPayments || adminPayments.length === 0) ? (
-            <div className="text-center py-10 text-gray-500">No transactions yet</div>
+            <div className="text-center py-10 text-base-content/50">No transactions yet</div>
           ) : (
             <div className="overflow-x-auto">
               <table className="table table-zebra">

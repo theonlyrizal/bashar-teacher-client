@@ -41,9 +41,9 @@ const OngoingTuitions = () => {
 
       {ongoingTuitions.length === 0 ? (
         <div className="text-center py-20 bg-base-200 rounded-lg">
-          <FaCheckCircle className="text-6xl text-gray-400 mx-auto mb-4" />
+          <FaCheckCircle className="text-6xl text-base-content/20 mx-auto mb-4" />
           <h3 className="text-2xl font-semibold mb-2">No Ongoing Tuitions</h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-base-content/60 mb-6">
             Once your applications are approved, they will appear here
           </p>
           <Link to="/dashboard/tutor/applications" className="btn btn-primary">
@@ -78,7 +78,7 @@ const OngoingTuitions = () => {
                       <div className="text-3xl font-bold text-success">
                         ৳{application.expectedSalary}
                       </div>
-                      <div className="text-sm text-gray-600">per month</div>
+                      <div className="text-sm text-base-content/60">per month</div>
                     </div>
                   </div>
 
@@ -87,16 +87,16 @@ const OngoingTuitions = () => {
                       <div className="flex items-center gap-2">
                         <FaMapMarkerAlt className="text-primary" />
                         <div>
-                          <div className="text-xs text-gray-600">Location</div>
+                          <div className="text-xs text-base-content/60">Location</div>
                           <div className="font-semibold">{tuition.location}</div>
                         </div>
                       </div>
                       <div>
-                        <div className="text-xs text-gray-600">Schedule</div>
+                        <div className="text-xs text-base-content/60">Schedule</div>
                         <div className="font-semibold">{tuition.schedule}</div>
                       </div>
                       <div>
-                        <div className="text-xs text-gray-600">Duration</div>
+                        <div className="text-xs text-base-content/60">Duration</div>
                         <div className="font-semibold">{tuition.duration}</div>
                       </div>
                     </div>
@@ -105,7 +105,7 @@ const OngoingTuitions = () => {
                   {tuition?.requirements && (
                     <div className="mt-4">
                       <h4 className="font-semibold mb-1">Requirements:</h4>
-                      <p className="text-gray-700 text-sm">{tuition.requirements}</p>
+                      <p className="text-base-content/80 text-sm">{tuition.requirements}</p>
                     </div>
                   )}
 
@@ -126,16 +126,16 @@ const OngoingTuitions = () => {
                         </div>
                         <div>
                           <div className="font-semibold">{student.name}</div>
-                          <div className="text-sm text-gray-600">{student.email}</div>
+                          <div className="text-sm text-base-content/70">{student.email}</div>
                           {student.phone && (
-                            <div className="text-sm text-gray-600">{student.phone}</div>
+                            <div className="text-sm text-base-content/70">{student.phone}</div>
                           )}
                         </div>
                       </div>
                       {tuition.contactInfo && (
                         <div className="mt-3">
                           <div className="text-sm font-semibold">Contact:</div>
-                          <div className="text-sm text-gray-700">{tuition.contactInfo}</div>
+                          <div className="text-sm text-base-content/80">{tuition.contactInfo}</div>
                         </div>
                       )}
                     </div>

@@ -96,7 +96,7 @@ const TuitionsListing = () => {
           className="mb-8"
         >
           <h1 className="text-4xl font-bold mb-2">Browse Available Tuitions</h1>
-          <p className="text-gray-600">Find the perfect tuition opportunity that matches your expertise</p>
+          <p className="text-base-content/70">Find the perfect tuition opportunity that matches your expertise</p>
         </motion.div>
 
         {/* Search and Filters */}
@@ -105,7 +105,7 @@ const TuitionsListing = () => {
           <form onSubmit={handleSearchSubmit} className="mb-6">
             <div className="flex gap-2">
               <div className="flex-1 relative">
-                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/40" />
                 <input
                   type="text"
                   placeholder="Search by subject or location..."
@@ -208,7 +208,7 @@ const TuitionsListing = () => {
 
         {/* Results Count */}
         {!loading && (
-          <div className="mb-4 text-gray-600">
+          <div className="mb-4 text-base-content/70">
             Showing {tuitions.length} of {pagination.total} tuitions
           </div>
         )}
@@ -254,7 +254,7 @@ const TuitionsListing = () => {
                     </div>
 
                     {tuition.requirements && (
-                      <p className="text-xs text-gray-600 mt-2 line-clamp-2">
+                      <p className="text-xs text-base-content/60 mt-2 line-clamp-2">
                         {tuition.requirements}
                       </p>
                     )}
@@ -269,7 +269,7 @@ const TuitionsListing = () => {
                             />
                           </div>
                         </div>
-                        <span className="text-xs text-gray-600">{tuition.studentId?.name}</span>
+                        <span className="text-xs text-base-content/70">{tuition.studentId?.name}</span>
                       </div>
                       <Link 
                         to={`/tuitions/${tuition._id}`} 
@@ -319,7 +319,7 @@ const TuitionsListing = () => {
         ) : (
           <div className="text-center py-20 bg-base-100 rounded-lg">
             <h3 className="text-2xl font-semibold mb-4">No Tuitions Found</h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-base-content/70 mb-6">
               {search || filters.class || filters.subject || filters.location
                 ? 'Try adjusting your filters to find more results'
                 : 'No tuitions available at the moment'}

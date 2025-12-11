@@ -23,7 +23,7 @@ const Contact = () => {
                 className="text-center mb-16"
             >
                 <h1 className="text-4xl font-bold text-primary mb-4">Contact Us</h1>
-                <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                <p className="text-xl text-base-content/70 max-w-2xl mx-auto">
                     Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
                 </p>
             </motion.div>

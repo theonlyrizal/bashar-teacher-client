@@ -72,7 +72,7 @@ const MyApplications = () => {
       {applications.length === 0 ? (
         <div className="text-center py-20 bg-base-200 rounded-lg">
           <h3 className="text-2xl font-semibold mb-4">No Applications Yet</h3>
-          <p className="text-gray-600 mb-6">Start applying to available tuitions</p>
+          <p className="text-base-content/70 mb-6">Start applying to available tuitions</p>
           <Link to="/tuitions" className="btn btn-primary">
             Browse Tuitions
           </Link>
@@ -104,22 +104,22 @@ const MyApplications = () => {
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-success">৳{app.expectedSalary}</div>
-                    <div className="text-sm text-gray-600">per month</div>
+                    <div className="text-sm text-base-content/60">per month</div>
                   </div>
                 </div>
 
                 {app.tuitionId && (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
                     <div>
-                      <span className="text-sm text-gray-600">Location:</span>
+                      <span className="text-sm text-base-content/60">Location:</span>
                       <p className="font-semibold">{app.tuitionId.location}</p>
                     </div>
                     <div>
-                      <span className="text-sm text-gray-600">Schedule:</span>
+                      <span className="text-sm text-base-content/60">Schedule:</span>
                       <p className="font-semibold">{app.tuitionId.schedule}</p>
                     </div>
                     <div>
-                      <span className="text-sm text-gray-600">Budget:</span>
+                      <span className="text-sm text-base-content/60">Budget:</span>
                       <p className="font-semibold">৳{app.tuitionId.budget}</p>
                     </div>
                   </div>
@@ -127,7 +127,7 @@ const MyApplications = () => {
 
                 <div className="mt-4">
                   <p className="text-sm font-semibold">Your Qualifications:</p>
-                  <p className="text-sm text-gray-700">{app.qualifications}</p>
+                  <p className="text-sm text-base-content/80">{app.qualifications}</p>
                 </div>
 
                 <div className="card-actions justify-end mt-4">

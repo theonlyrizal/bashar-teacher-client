@@ -42,28 +42,28 @@ const StudentDashboard = () => {
       title: 'My Tuitions',
       value: stats.totalTuitions,
       icon: <FaBook className="text-4xl" />,
-      color: 'bg-primary',
+      color: 'text-primary',
       link: '/dashboard/student/my-tuitions',
     },
     {
       title: 'Approved Tuitions',
       value: stats.approvedTuitions,
       icon: <FaUserGraduate className="text-4xl" />,
-      color: 'bg-success',
+      color: 'text-success',
       link: '/dashboard/student/my-tuitions',
     },
     {
       title: 'Applications Received',
       value: stats.totalApplications,
       icon: <FaUserGraduate className="text-4xl" />,
-      color: 'bg-secondary',
+      color: 'text-secondary',
       link: '/dashboard/student/applied-tutors',
     },
     {
       title: 'Total Spent',
       value: `৳${stats.totalPayments.toLocaleString()}`,
       icon: <FaMoneyBillWave className="text-4xl" />,
-      color: 'bg-accent',
+      color: 'text-accent',
       link: '/dashboard/student/payments',
     },
   ];
@@ -72,7 +72,7 @@ const StudentDashboard = () => {
     <div className="container mx-auto px-4 py-8">
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Welcome back, {user?.name}!</h1>
-        <p className="text-gray-600">Here's your tuition management overview</p>
+        <p className="text-base-content/70">Here's your tuition management overview</p>
       </motion.div>
 
       {/* Stats Cards */}
@@ -86,17 +86,17 @@ const StudentDashboard = () => {
           >
             <Link
               to={stat.link}
-              className={`card ${stat.color} text-white shadow-xl hover:shadow-2xl transition-all`}
+              className={`card shadow-xl hover:shadow-2xl transition-all`}
             >
               <div className="card-body">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h2 className="card-title text-white/90 text-sm">{stat.title}</h2>
-                    <p className="text-4xl font-bold mt-2">
+                    <h2 className="card-title text-base-content/70 text-sm">{stat.title}</h2>
+                    <p className={`text-4xl font-bold mt-2 ${stat.color}`}>
                       {loading ? <span className="loading loading-spinner"></span> : stat.value}
                     </p>
                   </div>
-                  <div className="opacity-50">{stat.icon}</div>
+                  <div className={`${stat.color} opacity-80`}>{stat.icon}</div>
                 </div>
               </div>
             </Link>

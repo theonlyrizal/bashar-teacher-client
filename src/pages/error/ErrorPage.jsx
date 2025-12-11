@@ -6,7 +6,7 @@ const ErrorPage = () => {
       <div className="text-center">
         <h1 className="text-9xl font-bold text-primary">404</h1>
         <h2 className="text-4xl font-semibold mt-4 mb-2">Page Not Found</h2>
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-lg text-base-content/70 mb-8">
           Oops! The page you're looking for doesn't exist.
         </p>
         <Link to="/" className="btn btn-primary btn-lg">

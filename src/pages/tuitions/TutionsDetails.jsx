@@ -109,12 +109,12 @@ const TuitionDetails = () => {
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h1 className="text-4xl font-bold text-primary mb-2">{tuition.title || tuition.subject}</h1>
-                <div className="text-xl text-gray-600 mb-2 font-semibold">Subject: {tuition.subject}</div>
+                <div className="text-xl text-base-content/70 mb-2 font-semibold">Subject: {tuition.subject}</div>
                 <div className="badge badge-secondary badge-lg">{tuition.class}</div>
               </div>
               <div className="text-right">
                 <div className="text-3xl font-bold text-success">৳{tuition.budget}</div>
-                <div className="text-sm text-gray-600">per month</div>
+                <div className="text-sm text-base-content/60">per month</div>
               </div>
             </div>
 
@@ -123,21 +123,21 @@ const TuitionDetails = () => {
               <div className="flex items-center gap-3">
                 <FaMapMarkerAlt className="text-2xl text-primary" />
                 <div>
-                  <div className="text-xs text-gray-600">Location</div>
+                  <div className="text-xs text-base-content/60">Location</div>
                   <div className="font-semibold">{tuition.location}</div>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <FaClock className="text-2xl text-secondary" />
                 <div>
-                  <div className="text-xs text-gray-600">Schedule</div>
+                  <div className="text-xs text-base-content/60">Schedule</div>
                   <div className="font-semibold">{tuition.schedule}</div>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <FaBook className="text-2xl text-accent" />
                 <div>
-                  <div className="text-xs text-gray-600">Duration</div>
+                  <div className="text-xs text-base-content/60">Duration</div>
                   <div className="font-semibold">{tuition.duration}</div>
                 </div>
               </div>
@@ -151,14 +151,14 @@ const TuitionDetails = () => {
             {tuition.requirements && (
               <div className="mb-6">
                 <h3 className="font-semibold mb-2">Requirements:</h3>
-                <p className="text-gray-700">{tuition.requirements}</p>
+                <p className="text-base-content/80">{tuition.requirements}</p>
               </div>
             )}
 
             {tuition.contactInfo && (
               <div>
                 <h3 className="font-semibold mb-2">Contact Information:</h3>
-                <p className="text-gray-700">{tuition.contactInfo}</p>
+                <p className="text-base-content/80">{tuition.contactInfo}</p>
               </div>
             )}
           </div>
@@ -177,9 +177,9 @@ const TuitionDetails = () => {
               </div>
               <div>
                 <div className="font-semibold text-lg">{tuition.studentId?.name}</div>
-                <div className="text-sm text-gray-600">{tuition.studentId?.email}</div>
+                <div className="text-sm text-base-content/70">{tuition.studentId?.email}</div>
                 {tuition.studentId?.phone && (
-                  <div className="text-sm text-gray-600 flex items-center gap-2 mt-1">
+                  <div className="text-sm text-base-content/70 flex items-center gap-2 mt-1">
                     <FaPhone /> {tuition.studentId.phone}
                   </div>
                 )}
@@ -219,18 +219,18 @@ const TuitionDetails = () => {
             <form onSubmit={handleApplicationSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="form-control">
-                    <label className="label font-semibold text-gray-700">Name</label>
+                    <label className="label font-semibold text-base-content/80">Name</label>
                     <input type="text" value={user?.name} className="input input-bordered w-full bg-white/50" disabled />
                   </div>
 
                   <div className="form-control">
-                    <label className="label font-semibold text-gray-700">Email</label>
+                    <label className="label font-semibold text-base-content/80">Email</label>
                     <input type="email" value={user?.email} className="input input-bordered w-full bg-white/50" disabled />
                   </div>
               </div>
 
               <div className="form-control">
-                <label className="label font-semibold text-gray-700">Qualifications <span className="text-error">*</span></label>
+                <label className="label font-semibold text-base-content/80">Qualifications <span className="text-error">*</span></label>
                 <textarea
                   className="textarea textarea-bordered h-24 w-full bg-white/50"
                   placeholder="Your educational qualifications, degrees, certifications..."
@@ -243,7 +243,7 @@ const TuitionDetails = () => {
               </div>
 
               <div className="form-control">
-                <label className="label font-semibold text-gray-700">Experience <span className="text-error">*</span></label>
+                <label className="label font-semibold text-base-content/80">Experience <span className="text-error">*</span></label>
                 <textarea
                   className="textarea textarea-bordered h-24 w-full bg-white/50"
                   placeholder="Your teaching experience, years of experience, subjects taught..."
@@ -256,7 +256,7 @@ const TuitionDetails = () => {
               </div>
 
               <div className="form-control">
-                <label className="label font-semibold text-gray-700">Expected Salary (৳/month) <span className="text-error">*</span></label>
+                <label className="label font-semibold text-base-content/80">Expected Salary (৳/month) <span className="text-error">*</span></label>
                 <input
                   type="number"
                   className="input input-bordered w-full bg-white/50"
@@ -271,7 +271,7 @@ const TuitionDetails = () => {
               </div>
 
               <div className="form-control">
-                <label className="label font-semibold text-gray-700">Message (Optional)</label>
+                <label className="label font-semibold text-base-content/80">Message (Optional)</label>
                 <textarea
                   className="textarea textarea-bordered h-24 w-full bg-white/50"
                   placeholder="Any additional message or information..."

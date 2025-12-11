@@ -67,7 +67,7 @@ const TutorDetails = () => {
               </div>
               <div className="flex-1">
                 <h1 className="text-3xl font-bold">{tutor.name}</h1>
-                <div className="text-gray-600 flex items-center justify-center md:justify-start gap-2 mt-1">
+                <div className="text-base-content/70 flex items-center justify-center md:justify-start gap-2 mt-1">
                   <FaMapMarkerAlt className="text-primary" />
                   {tutor.location || 'Location not provided'}
                 </div>
@@ -82,7 +82,7 @@ const TutorDetails = () => {
                 <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <FaChalkboardTeacher className="text-secondary" /> About Me
                 </h2>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-base-content/80 leading-relaxed">
                   {tutor.about || "This tutor hasn't added a bio yet."}
                 </p>
               </div>
@@ -94,7 +94,7 @@ const TutorDetails = () => {
                   <span>{tutor.email}</span>
                 </div>
                 {tutor.phone && (
-                   <div className="flex items-center gap-3 text-gray-700">
+                   <div className="flex items-center gap-3 text-base-content/80">
                     <FaPhone className="text-success" />
                     <span>{tutor.phone}</span>
                   </div>

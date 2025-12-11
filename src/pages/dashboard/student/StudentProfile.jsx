@@ -57,7 +57,7 @@ const StudentProfile = () => {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{user?.name}</h2>
-              <p className="text-gray-600">{user?.email}</p>
+              <p className="text-base-content/70">{user?.email}</p>
               <div className="badge badge-primary mt-2">{user?.role}</div>
             </div>
           </div>
@@ -83,7 +83,7 @@ const StudentProfile = () => {
               </label>
               <input type="email" className="input input-bordered" value={user?.email} disabled />
               <label className="label">
-                <span className="label-text-alt text-gray-500">Email cannot be changed</span>
+                <span className="label-text-alt text-base-content/50">Email cannot be changed</span>
               </label>
             </div>
 
@@ -114,7 +114,7 @@ const StudentProfile = () => {
                 onChange={handleChange}
               />
               <label className="label">
-                <span className="label-text-alt text-gray-500">
+                <span className="label-text-alt text-base-content/50">
                   Provide a direct link to your profile picture
                 </span>
               </label>

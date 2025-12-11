@@ -131,7 +131,7 @@ const PostTuition = () => {
                 <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                     Find Your Perfect Tutor
                 </h1>
-                <p className="text-gray-600 mt-2 font-medium">
+                <p className="text-base-content/70 mt-2 font-medium">
                     Create a tuition post and connect with qualified educators
                 </p>
             </div>
@@ -140,7 +140,7 @@ const PostTuition = () => {
                 
                 {/* 1. Title (Full Width) */}
                 <div className="form-control">
-                    <label className="label font-bold text-gray-700">Tuition Title</label>
+                    <label className="label font-bold text-base-content/80">Tuition Title</label>
                     <input 
                         type="text" 
                         name="title" 
@@ -156,7 +156,7 @@ const PostTuition = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Multi-Select Subject */}
                     <div className="form-control">
-                        <label className="label font-bold text-gray-700">Subjects</label>
+                        <label className="label font-bold text-base-content/80">Subjects</label>
                         <select 
                             className={selectClass} 
                             onChange={handleSubjectSelect} 
@@ -177,7 +177,7 @@ const PostTuition = () => {
                     </div>
 
                     <div className="form-control">
-                        <label className="label font-bold text-gray-700">Class/Grade</label>
+                        <label className="label font-bold text-base-content/80">Class/Grade</label>
                         <select name="class" className={selectClass} value={formData.class} onChange={handleChange} required>
                             <option value="">Select Class</option>
                             {CLASSES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -188,16 +188,16 @@ const PostTuition = () => {
                 {/* 3. Location & Budget */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                      <div className="form-control">
-                        <label className="label font-bold text-gray-700">Location</label>
+                        <label className="label font-bold text-base-content/80">Location</label>
                         <select name="location" className={selectClass} value={formData.location} onChange={handleChange} required>
                             <option value="">Select Division</option>
                             {DIVISIONS.map(d => <option key={d} value={d}>{d}</option>)}
                         </select>
                     </div>
                     <div className="form-control">
-                        <label className="label font-bold text-gray-700">Budget (Monthly)</label>
+                        <label className="label font-bold text-base-content/80">Budget (Monthly)</label>
                         <div className="relative">
-                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-bold">৳</span>
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/50 font-bold">৳</span>
                             <input 
                                 type="number" 
                                 name="budget" 
@@ -216,7 +216,7 @@ const PostTuition = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Days Selection */}
                     <div className="form-control">
-                        <label className="label font-bold text-gray-700">Days per Week</label>
+                        <label className="label font-bold text-base-content/80">Days per Week</label>
                         <div className="flex flex-wrap gap-2 p-3 bg-white/30 rounded-xl border border-white/40">
                             {WEEK_DAYS.map(day => (
                                 <label key={day} className="cursor-pointer">
@@ -228,7 +228,7 @@ const PostTuition = () => {
                                     />
                                     <div className="px-3 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200 border border-transparent 
                                         peer-checked:bg-primary peer-checked:text-white peer-checked:shadow-lg
-                                        bg-white/50 text-gray-600 hover:bg-white/80">
+                                        bg-white/50 text-base-content/70 hover:bg-white/80">
                                         {day}
                                     </div>
                                 </label>
@@ -239,7 +239,7 @@ const PostTuition = () => {
 
                     {/* Duration Selection */}
                     <div className="form-control">
-                        <label className="label font-bold text-gray-700">Duration</label>
+                        <label className="label font-bold text-base-content/80">Duration</label>
                         <div className="flex gap-2">
                              <input 
                                 type="number" 
@@ -267,7 +267,7 @@ const PostTuition = () => {
                 {/* 5. Requirements & Contact */}
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="form-control md:col-span-2">
-                        <label className="label font-bold text-gray-700">Additional Requirements</label>
+                        <label className="label font-bold text-base-content/80">Additional Requirements</label>
                         <textarea 
                             name="requirements" 
                             className={`textarea textarea-bordered w-full overflow-hidden resize-none min-h-[3rem] focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary`} 
@@ -279,7 +279,7 @@ const PostTuition = () => {
                     </div>
 
                     <div className="form-control md:col-span-2">
-                        <label className="label font-bold text-gray-700">Contact Number</label>
+                        <label className="label font-bold text-base-content/80">Contact Number</label>
                          <input 
                             type="tel" 
                             name="contactInfo" 

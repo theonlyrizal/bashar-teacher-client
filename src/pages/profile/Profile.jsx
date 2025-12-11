@@ -98,7 +98,7 @@ const Profile = () => {
             {/* Profile Form */}
             <form onSubmit={handleSubmit} className="mt-8">
                 <fieldset className="fieldset border border-base-300 p-6 rounded-xl bg-base-100/50 shadow-lg">
-                    <legend className="px-2 font-bold text-gray-500 text-xl">Personal Information</legend>
+                    <legend className="px-2 font-bold text-base-content/70 text-xl">Personal Information</legend>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
                         {/* Common Fields */}

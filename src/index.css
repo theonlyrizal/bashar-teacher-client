@@ -37,11 +37,19 @@
   --color-error: oklch(65% 0.3 30);
   --color-error-content: oklch(98% 0.01 30);
 
+  /* Semantic Glass Variables - Light */
+  --glass-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-border-bottom: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.1), 
+    0 5px 15px rgba(0,0,0,0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8), 
+    inset 0 0 20px rgba(255, 255, 255, 0.2);
+
   /* base sizes */
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
-
-  /* border size */
   --border: 1px;
 }
 
@@ -81,6 +89,15 @@
   --color-error: oklch(65% 0.25 20);
   --color-error-content: oklch(10% 0.02 20);
 
+  /* Semantic Glass Variables - Dark */
+  --glass-bg: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(20, 20, 20, 0.85));
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-border-bottom: rgba(0, 0, 0, 0.4);
+  --glass-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 0 20px rgba(0, 0, 0, 0.5);
+
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
 }
@@ -96,18 +113,15 @@
 .input, .select, .textarea, .file-input {
   @apply rounded-2xl;
 }
+
 /* Liquid Glass Effect - Base Style */
 .card, .fieldset, .modal-box, .dropdown-content, .toast, .menu-dropdown-toggle {
-  @apply rounded-3xl backdrop-blur-2xl shadow-2xl;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)); /* Much more opaque */
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.1), 
-    0 5px 15px rgba(0,0,0,0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8), 
-    inset 0 0 20px rgba(255, 255, 255, 0.2); 
+  @apply rounded-3xl backdrop-blur-2xl;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border-bottom);
+  border-right: 1px solid var(--glass-border-bottom);
+  box-shadow: var(--glass-shadow);
   position: relative;
   overflow: hidden;
 }
@@ -120,7 +134,7 @@
 
 /* Fix for Fieldset "Ugly" Border - Normalize it */
 .fieldset {
-  border-top: 1px solid rgba(255, 255, 255, 0.4) !important; 
+  border-top: 1px solid var(--glass-border) !important; 
   margin-top: 1rem; 
 }
 /* Ensure legend looks floating if present */
@@ -132,30 +146,13 @@
 /* Navbar Specific */
 .navbar {
   @apply rounded-full backdrop-blur-2xl shadow-2xl;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)); /* Opaque glass */
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 0 20px rgba(255, 255, 255, 0.2);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border-bottom);
+  box-shadow: var(--glass-shadow);
 }
 
-/* Dark mode adjustments */
-[data-theme='basharteacher-dark'] .card, 
-[data-theme='basharteacher-dark'] .fieldset, 
-[data-theme='basharteacher-dark'] .modal-box, 
-[data-theme='basharteacher-dark'] .dropdown-content,
-[data-theme='basharteacher-dark'] .toast,
-[data-theme='basharteacher-dark'] .navbar {
-  background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(20, 20, 20, 0.85)); /* Nearly solid dark glass */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-  box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 0 20px rgba(0, 0, 0, 0.5);
-}
+/* Dark mode adjustments - REMOVED (Handled by variables now) */
 
 /* Noise Texture Overlay - Finer Particles (Higher Frequency) */
 .card::before, .fieldset::before, .modal-box::before, .dropdown-content::before, .navbar::before {
@@ -177,6 +174,8 @@
 
 /* Global Background */
 body {
+  font-family: 'Outfit', sans-serif;
+  color: var(--color-base-content);
   background-color: var(--color-base-100);
   background-image: 
     radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.2) 0%, transparent 40%),

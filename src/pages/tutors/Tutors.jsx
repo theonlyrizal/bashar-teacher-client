@@ -25,11 +25,11 @@ const Tutors = () => {
                 className="mb-12 text-center"
             >
                 <h1 className="text-4xl font-bold text-primary mb-4">Find Your Perfect Tutor</h1>
-                <p className="text-gray-600 text-lg mb-8">Browse our community of expert tutors ready to help you succeed.</p>
+                <p className="text-base-content/70 text-lg mb-8">Browse our community of expert tutors ready to help you succeed.</p>
 
                 {/* Search Bar */}
                 <div className="max-w-md mx-auto relative">
-                    <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-base-content/40" />
                     <input
                         type="text"
                         placeholder="Search by name or location..."
@@ -67,7 +67,7 @@ const Tutors = () => {
                                     <div className="badge badge-secondary badge-outline mt-1 mb-2">Tutor</div>
                                     
                                     <div className="w-full space-y-2 mt-2">
-                                        <div className="flex items-center justify-center gap-2 text-gray-600">
+                                        <div className="flex items-center justify-center gap-2 text-base-content/70">
                                             <FaMapMarkerAlt className="text-primary" />
                                             <span>{tutor.location || 'Location not set'}</span>
                                         </div>
@@ -83,8 +83,8 @@ const Tutors = () => {
                         ))
                     ) : (
                         <div className="col-span-full text-center py-12">
-                            <FaChalkboardTeacher className="mx-auto text-6xl text-gray-300 mb-4" />
-                            <h3 className="text-xl font-bold text-gray-500">No tutors found matching your search.</h3>
+                            <FaChalkboardTeacher className="mx-auto text-6xl text-base-content/20 mb-4" />
+                            <h3 className="text-xl font-bold text-base-content/50">No tutors found matching your search.</h3>
                         </div>
                     )}
                 </div>
