@@ -29,6 +29,7 @@ import UserManagement from '../pages/dashboard/admin/UserManagement';
 import TuitionManagement from '../pages/dashboard/admin/TutionManagement';
 import Analytics from '../pages/dashboard/admin/Analytics';
 import PaymentSuccessPage from '../pages/dashboard/student/PaymentSuccessPage';
+import Profile from '../pages/profile/Profile';
 
 // Dashboard Pages
 
@@ -57,6 +58,14 @@ export const routes = createBrowserRouter([
       {
         path: '/tuitions/:id',
         element: <TuitionDetails />,
+      },
+      {
+        path: '/profile',
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/tutors',

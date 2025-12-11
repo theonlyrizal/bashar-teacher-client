@@ -156,11 +156,12 @@ const AuthProvider = ({ children }) => {
     try {
       const userId = user?._id || user?.id;
       const response = await api.patch(`/users/${userId}`, updates);
-      if (response.data.success) {
+      // Mongo updateOne returns { acknowledged: true, modifiedCount: 1, ... }
+      if (response.data.modifiedCount > 0 || response.data.matchedCount > 0 || response.data.acknowledged) {
         const updatedUser = { ...user, ...updates };
         localStorage.setItem('user', JSON.stringify(updatedUser));
         setUser(updatedUser);
-        toast.success('Profile updated successfully');
+        // toast.success('Profile updated successfully'); // Caller handles toast
         return response.data;
       }
     } catch (error) {
