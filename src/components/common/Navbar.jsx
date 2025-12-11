@@ -48,100 +48,100 @@ const Navbar = () => {
   return (
     <div className="navbar sticky top-2 z-50 rounded-full w-[95%] md:w-[90%] mx-auto">
       <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {' '}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{' '}
-            </svg>
-          </div>
-          <ul
-            tabIndex={-1}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow space-x-2"
-          >
-            {/* {loading ? <div className="skeleton h-auto w-32"></div> : navLinks} */}
-            {navLinks}
-          </ul>
-        </div>
-        <Link
-          to="/"
-          className="btn btn-ghost text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary"
-        >
-          বাসার Teacher
-        </Link>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 space-x-1">
-          {/* {loading ? (
-            <div className="flex space-x-2">
-              <div className="skeleton h-8 w-28"></div>
-              <div className="skeleton h-8 w-28"></div>
-              <div className="skeleton h-8 w-28"></div>
-            </div>
-          ) : (
-            navLinks
-          )} */}
-          {navLinks}
-        </ul>
-      </div>
-      <div className="navbar-end gap-2 md:gap-4">
-        {user ? (
-          <div className="dropdown dropdown-end hover:cursor-pointer">
-            <div tabIndex={0} role="button">
-              <div className="join h-10 items-center max-w-[180px] overflow-hidden">
-                <img
-                  className="join-item h-8 w-8 md:h-10 md:w-10 rounded-full object-cover border border-base-300"
-                  src={user.photoURL || 'https://i.ibb.co/4pDNDk1/avatar.png'}
-                  alt="user avatar"
-                />
-                <p className="px-2 text-sm font-semibold truncate hidden md:block">{user.displayName || user.name}</p>
-              </div>
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {' '}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />{' '}
+              </svg>
             </div>
             <ul
               tabIndex={-1}
-              className="dropdown-content menu bg-base-100 rounded-box z-100 w-52 p-2 shadow-sm border border-base-200"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[50] mt-3 w-52 p-2 shadow space-x-2 absolute top-full left-0"
             >
-             <li className="menu-title px-4 py-2">
-                <span className="font-bold">{user.displayName || user.name}</span>
-                <span className="text-xs text-primary badge badge-ghost mt-1">{user.role}</span>
-              </li>
-              <li>
-                <Link
-                  to={
-                    user.role === 'Admin'
-                      ? '/dashboard/admin'
-                      : user.role === 'Tutor'
-                      ? '/dashboard/tutor'
-                      : '/dashboard/student'
-                  }
-                >
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link to="/profile">Profile Settings</Link>
-              </li>
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="btn btn-outline btn-error btn-sm mt-2 hover:text-white"
-                >
-                  Sign Out
-                </button>
-              </li>
+              {/* {loading ? <div className="skeleton h-auto w-32"></div> : navLinks} */}
+              {navLinks}
             </ul>
           </div>
+          <Link
+            to="/"
+            className="btn btn-ghost text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary"
+          >
+            বাসার Teacher
+          </Link>
+        </div>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1 space-x-1">
+            {/* {loading ? (
+              <div className="flex space-x-2">
+                <div className="skeleton h-8 w-28"></div>
+                <div className="skeleton h-8 w-28"></div>
+                <div className="skeleton h-8 w-28"></div>
+              </div>
+            ) : (
+              navLinks
+            )} */}
+            {navLinks}
+          </ul>
+        </div>
+        <div className="navbar-end gap-2 md:gap-4">
+          {user ? (
+            <div className="dropdown dropdown-end hover:cursor-pointer relative">
+              <div tabIndex={0} role="button">
+                <div className="join h-10 items-center max-w-[180px] overflow-hidden">
+                  <img
+                    className="join-item h-8 w-8 md:h-10 md:w-10 rounded-full object-cover border border-base-300"
+                    src={user.photoURL || 'https://i.ibb.co/4pDNDk1/avatar.png'}
+                    alt="user avatar"
+                  />
+                  <p className="px-2 text-sm font-semibold truncate hidden md:block">{user.displayName || user.name}</p>
+                </div>
+              </div>
+              <ul
+                tabIndex={-1}
+                className="dropdown-content menu bg-base-100 rounded-box z-[50] w-52 p-2 shadow-sm border border-base-200 absolute top-full right-0 mt-3"
+              >
+               <li className="menu-title px-4 py-2">
+                  <span className="font-bold">{user.displayName || user.name}</span>
+                  <span className="text-xs text-primary badge badge-ghost mt-1">{user.role}</span>
+                </li>
+                <li>
+                  <Link
+                    to={
+                      user.role === 'Admin'
+                        ? '/dashboard/admin'
+                        : user.role === 'Tutor'
+                        ? '/dashboard/tutor'
+                        : '/dashboard/student'
+                    }
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/profile">Profile Settings</Link>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-outline btn-error btn-sm mt-2 hover:text-white"
+                  >
+                    Sign Out
+                  </button>
+                </li>
+              </ul>
+            </div>
         ) : (
           <div className="join rounded-full">
             <Link

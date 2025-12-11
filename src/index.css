@@ -99,40 +99,46 @@
 /* Liquid Glass Effect - Base Style */
 .card, .fieldset, .modal-box, .dropdown-content, .toast, .menu-dropdown-toggle {
   @apply rounded-3xl backdrop-blur-2xl shadow-2xl;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)); /* Much more opaque */
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.2), /* Deep drop shadow */
-    0 5px 15px rgba(0,0,0,0.1), /* Ambient shadow */
-    inset 0 1px 0 rgba(255, 255, 255, 0.4), /* Top highlight (edged look) */
-    inset 0 0 20px rgba(255, 255, 255, 0.05); /* Inner glow */
+    0 15px 35px rgba(0, 0, 0, 0.1), 
+    0 5px 15px rgba(0,0,0,0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8), 
+    inset 0 0 20px rgba(255, 255, 255, 0.2); 
   position: relative;
   overflow: hidden;
 }
 
+/* Fix Dropdown Positioning: Must be absolute to not expand parent */
+.dropdown-content {
+  position: absolute !important; 
+  overflow: hidden; /* Keep rounded corners, but ensure it doesn't affect flow */
+}
+
 /* Fix for Fieldset "Ugly" Border - Normalize it */
 .fieldset {
-  border-top: 1px solid rgba(255, 255, 255, 0.2) !important; /* Force uniform border */
-  margin-top: 1rem; /* Space for legend */
+  border-top: 1px solid rgba(255, 255, 255, 0.4) !important; 
+  margin-top: 1rem; 
 }
 /* Ensure legend looks floating if present */
 .fieldset legend {
   padding: 0 0.5rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 0 1px 2px rgba(255,255,255,0.8);
 }
 
 /* Navbar Specific */
 .navbar {
   @apply rounded-full backdrop-blur-2xl shadow-2xl;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)); /* Opaque glass */
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 0 20px rgba(255, 255, 255, 0.05);
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 /* Dark mode adjustments */
@@ -142,13 +148,13 @@
 [data-theme='basharteacher-dark'] .dropdown-content,
 [data-theme='basharteacher-dark'] .toast,
 [data-theme='basharteacher-dark'] .navbar {
-  background: linear-gradient(145deg, rgba(30, 30, 30, 0.6), rgba(20, 20, 20, 0.4));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(20, 20, 20, 0.85)); /* Nearly solid dark glass */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 0 20px rgba(0, 0, 0, 0.4);
+    0 15px 35px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 /* Noise Texture Overlay - Finer Particles (Higher Frequency) */
