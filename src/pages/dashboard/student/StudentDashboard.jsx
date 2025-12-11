@@ -21,30 +21,14 @@ const StudentDashboard = () => {
 
   const fetchDashboardStats = async () => {
     try {
-      const tuitionsRes = await api.get('/tuitions/my-tuitions');
-      const tuitions = tuitionsRes.data.tuitions || [];
-
-      // Fetch applications count for all tuitions
-      let totalApps = 0;
-      for (const tuition of tuitions) {
-        try {
-          const appsRes = await api.get(`/applications/tuition/${tuition._id}`);
-          totalApps += appsRes.data.count || 0;
-        } catch (err) {
-          // Continue if error
-        }
-      }
-
-      // Fetch payments
-      const paymentsRes = await api
-        .get('/payments/student-payments')
-        .catch(() => ({ data: { payments: [] } }));
+      const res = await api.get('/student/stats');
+      const data = res.data;
 
       setStats({
-        totalTuitions: tuitions.length,
-        approvedTuitions: tuitions.filter((t) => t.status === 'Approved').length,
-        totalApplications: totalApps,
-        totalPayments: paymentsRes.data.payments?.length || 0,
+        totalTuitions: data.totalTuitions || 0,
+        approvedTuitions: data.approvedTuitions || 0,
+        totalApplications: data.totalApplications || 0,
+        totalPayments: data.totalSpent || 0, // Using totalSpent (amount) as requested, or switch to totalPayments (count) if user meant count. Code below uses FaMoneyBillWave so Amount is better.
       });
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -76,8 +60,8 @@ const StudentDashboard = () => {
       link: '/dashboard/student/applied-tutors',
     },
     {
-      title: 'Payments Made',
-      value: stats.totalPayments,
+      title: 'Total Spent',
+      value: `৳${stats.totalPayments.toLocaleString()}`,
       icon: <FaMoneyBillWave className="text-4xl" />,
       color: 'bg-accent',
       link: '/dashboard/student/payments',

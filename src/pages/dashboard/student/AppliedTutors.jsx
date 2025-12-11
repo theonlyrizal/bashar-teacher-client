@@ -28,12 +28,19 @@ const AppliedTutors = () => {
         api.get(`/applications/tuition/${tuitionId}`)
       ]);
 
-      if (tuitionRes.data.success) {
-        setTuition(tuitionRes.data.tuition);
+      // Handle raw response for tuition (object directly)
+      if (tuitionRes.data && tuitionRes.data._id) {
+        setTuition(tuitionRes.data);
+      } else if (tuitionRes.data.success && tuitionRes.data.tuition) {
+          // Fallback if API changes to standard envelope
+          setTuition(tuitionRes.data.tuition);
       }
 
-      if (appsRes.data.success) {
-        setApplications(appsRes.data.applications);
+      // Handle raw response for applications (array directly)
+      if (Array.isArray(appsRes.data)) {
+        setApplications(appsRes.data);
+      } else if (appsRes.data.success && Array.isArray(appsRes.data.applications)) {
+         setApplications(appsRes.data.applications);
       }
     } catch (error) {
       console.error('Error fetching applications:', error);
@@ -47,17 +54,38 @@ const AppliedTutors = () => {
     try {
       // Get all student's tuitions first
       const tuitionsRes = await api.get('/tuitions/my-tuitions');
-      if (tuitionsRes.data.success) {
+      
+      // Handle raw array response or wrapped success
+      let myTuitions = [];
+      if (Array.isArray(tuitionsRes.data)) {
+          myTuitions = tuitionsRes.data;
+      } else if (tuitionsRes.data.success && Array.isArray(tuitionsRes.data.result)) { // Adjust based on API if needed
+          myTuitions = tuitionsRes.data.result || []; // Logic assumption
+      }
+      
+      if (myTuitions.length > 0) {
         const allApps = [];
         
         // Fetch applications for each tuition
-        for (const tuition of tuitionsRes.data.tuitions) {
-          const appsRes = await api.get(`/applications/tuition/${tuition._id}`);
-          if (appsRes.data.success && appsRes.data.applications.length > 0) {
-            allApps.push({
-              tuition,
-              applications: appsRes.data.applications
-            });
+        for (const tuition of myTuitions) {
+          try {
+            const appsRes = await api.get(`/applications/tuition/${tuition._id}`);
+            // Handle array response
+            let apps = [];
+            if (Array.isArray(appsRes.data)) {
+                apps = appsRes.data;
+            } else if (appsRes.data.success && Array.isArray(appsRes.data.applications)) {
+                apps = appsRes.data.applications;
+            }
+
+            if (apps.length > 0) {
+              allApps.push({
+                tuition,
+                applications: apps
+              });
+            }
+          } catch (err) {
+             console.error(`Failed to fetch apps for tuition ${tuition._id}`, err);
           }
         }
         
@@ -182,8 +210,8 @@ const ApplicationCard = ({ application, index, onAccept, onReject, getStatusBadg
         <div className="avatar">
           <div className="w-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
             <img 
-              src={application.tutorId?.photoURL || 'https://i.ibb.co/4pDNDk1/avatar.png'} 
-              alt={application.tutorId?.name}
+              src={application.tutor?.photoURL || 'https://i.ibb.co/4pDNDk1/avatar.png'} 
+              alt={application.tutor?.name}
             />
           </div>
         </div>
@@ -191,16 +219,16 @@ const ApplicationCard = ({ application, index, onAccept, onReject, getStatusBadg
         <div className="flex-1">
           <div className="flex justify-between items-start">
             <div>
-              <h3 className="text-xl font-bold">{application.tutorId?.name}</h3>
-              <p className="text-sm text-gray-600">{application.tutorId?.email}</p>
-              {application.tutorId?.phone && (
-                <p className="text-sm text-gray-600">{application.tutorId.phone}</p>
+              <h3 className="text-xl font-bold">{application.tutor?.name}</h3>
+              <p className="text-sm text-gray-600">{application.tutor?.email}</p>
+              {application.tutor?.phone && (
+                <p className="text-sm text-gray-600">{application.tutor.phone}</p>
               )}
               <div className="mt-2">
                 <div className={`badge ${getStatusBadge(application.status)}`}>
                   {application.status}
                 </div>
-                {application.tutorId?.isVerified && (
+                {application.tutor?.isVerified && (
                   <div className="badge badge-success ml-2">Verified</div>
                 )}
               </div>

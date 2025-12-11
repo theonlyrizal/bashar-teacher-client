@@ -21,20 +21,14 @@ const TutorDashboard = () => {
 
   const fetchDashboardStats = async () => {
     try {
-      const [appsRes, revenueRes] = await Promise.all([
-        api.get('/applications/my-applications'),
-        api
-          .get('/payments/tutor-revenue')
-          .catch(() => ({ data: { payments: [], totalRevenue: 0 } })),
-      ]);
-
-      const apps = appsRes.data.applications || [];
+      const res = await api.get('/tutor/stats');
+      const data = res.data;
 
       setStats({
-        totalApplications: apps.length,
-        approvedApplications: apps.filter((a) => a.status === 'Approved').length,
-        pendingApplications: apps.filter((a) => a.status === 'Pending').length,
-        totalRevenue: revenueRes.data.totalRevenue || 0,
+        totalApplications: data.totalApplications || 0,
+        approvedApplications: data.approvedApplications || 0,
+        pendingApplications: data.pendingApplications || 0,
+        totalRevenue: data.totalRevenue || 0,
       });
     } catch (error) {
       console.error('Error fetching stats:', error);
