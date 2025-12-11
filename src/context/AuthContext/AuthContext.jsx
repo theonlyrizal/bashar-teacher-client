@@ -158,8 +158,8 @@ const AuthProvider = ({ children }) => {
         if (storedUser && storedToken) {
           setUser(JSON.parse(storedUser));
           setToken(storedToken);
-        } else {
-          // Verify with backend
+        } else if (storedToken) {
+          // Only verify if we actually have a token to verify
           try {
             const response = await api.get('/auth/verify-token');
             if (response.data.success) {
@@ -170,7 +170,15 @@ const AuthProvider = ({ children }) => {
             console.error('Token verification failed:', error);
             localStorage.removeItem('token');
             localStorage.removeItem('user');
+            // If verification fails, ensure we are logged out locally
+            setUser(null);
+            setToken(null);
           }
+        } else {
+          // Firebase is logged in, but we have no token yet.
+          // This happens during registration before the backend responds.
+          // Do nothing and let the registration function handle setting the user.
+          // Or if this is a stray state, the UI will treat user as null (unauthenticated).
         }
       } else {
         setUser(null);

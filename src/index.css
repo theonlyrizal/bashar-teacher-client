@@ -98,26 +98,41 @@
 }
 /* Liquid Glass Effect - Base Style */
 .card, .fieldset, .modal-box, .dropdown-content, .toast, .menu-dropdown-toggle {
-  @apply rounded-3xl backdrop-blur-xl border border-white/20 shadow-xl;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+  @apply rounded-3xl backdrop-blur-2xl shadow-2xl;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 
-    0 8px 32px 0 rgba(31, 38, 135, 0.15),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-    inset 0 0 20px rgba(255, 255, 255, 0.1);
+    0 15px 35px rgba(0, 0, 0, 0.2), /* Deep drop shadow */
+    0 5px 15px rgba(0,0,0,0.1), /* Ambient shadow */
+    inset 0 1px 0 rgba(255, 255, 255, 0.4), /* Top highlight (edged look) */
+    inset 0 0 20px rgba(255, 255, 255, 0.05); /* Inner glow */
   position: relative;
   overflow: hidden;
 }
 
-/* Navbar Specific - Needs visible overflow for dropdowns & sticky positioning */
+/* Fix for Fieldset "Ugly" Border - Normalize it */
+.fieldset {
+  border-top: 1px solid rgba(255, 255, 255, 0.2) !important; /* Force uniform border */
+  margin-top: 1rem; /* Space for legend */
+}
+/* Ensure legend looks floating if present */
+.fieldset legend {
+  padding: 0 0.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Navbar Specific */
 .navbar {
-  @apply rounded-full backdrop-blur-xl border border-white/20 shadow-xl;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+  @apply rounded-full backdrop-blur-2xl shadow-2xl;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 
-    0 8px 32px 0 rgba(31, 38, 135, 0.15),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-    inset 0 0 20px rgba(255, 255, 255, 0.1);
-  /* No overflow:hidden here to allow dropdowns */
-  /* No position:relative here to avoid conflicts with sticky utility */
+    0 10px 30px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
 /* Dark mode adjustments */
@@ -127,15 +142,16 @@
 [data-theme='basharteacher-dark'] .dropdown-content,
 [data-theme='basharteacher-dark'] .toast,
 [data-theme='basharteacher-dark'] .navbar {
-  background: linear-gradient(135deg, rgba(20, 20, 20, 0.5), rgba(40, 40, 40, 0.2));
-  border-color: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(145deg, rgba(30, 30, 30, 0.6), rgba(20, 20, 20, 0.4));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 
-    0 8px 32px 0 rgba(0, 0, 0, 0.3),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-    inset 0 0 20px rgba(0, 0, 0, 0.2);
+    0 15px 35px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Noise Texture Overlay */
+/* Noise Texture Overlay - Finer Particles (Higher Frequency) */
 .card::before, .fieldset::before, .modal-box::before, .dropdown-content::before, .navbar::before {
   content: "";
   position: absolute;
@@ -143,10 +159,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.07;
+  opacity: 0.04; /* Subtler */
   pointer-events: none;
   z-index: -1;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
 }
 .navbar::before {
   border-radius: 9999px; /* Match navbar rounded-full */

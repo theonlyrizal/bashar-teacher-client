@@ -32,7 +32,8 @@ api.interceptors.response.use(
       // Token expired or invalid
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      // Do NOT force reload. Let the React state/router handle the redirect.
+      // window.location.href = '/login';
     }
     return Promise.reject(error);
   }
