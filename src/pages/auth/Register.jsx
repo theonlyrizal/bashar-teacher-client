@@ -8,13 +8,16 @@ import { FaArrowRight } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 
 const Register = () => {
+  const [isAdminRegistration, setIsAdminRegistration] = useState(false);
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
     role: 'Student',
-    phone: ''
+    phone: '',
+    adminToken: '' 
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -64,15 +67,16 @@ const Register = () => {
         formData.name,
         formData.email,
         formData.password,
-        formData.role,
-        formData.phone
+        isAdminRegistration ? ROLES.ADMIN : formData.role, // Optimistic role, backend verifies token
+        formData.phone,
+        isAdminRegistration ? formData.adminToken : null
       );
       
       toast.success('Registration and Login Successful!');
 
-      // Redirect based on role
-      if (formData.role === 'Admin') {
-        navigate('/dashboard/admin');
+      // Redirect based on role (or intended role)
+      if (isAdminRegistration) {
+        navigate('/dashboard/admin'); // Optimistic
       } else if (formData.role === 'Tutor') {
         navigate('/dashboard/tutor');
       } else {
@@ -130,17 +134,49 @@ const Register = () => {
             onChange={handleChange}
           />
 
-          <label className="label font-semibold">Register As</label>
-          <select
-            name="role"
-            className="select w-full"
-            value={formData.role}
-            onChange={handleChange}
-            required
-          >
-            <option value={ROLES.STUDENT}>Student</option>
-            <option value={ROLES.TUTOR}>Tutor</option>
-          </select>
+          
+          {/* Admin Toggle */}
+          <div className="form-control">
+            <label className="label cursor-pointer justify-start gap-4">
+              <input 
+                type="checkbox" 
+                checked={isAdminRegistration} 
+                onChange={(e) => setIsAdminRegistration(e.target.checked)} 
+                className="checkbox checkbox-primary" 
+              />
+              <span className="label-text font-semibold">Are you an admin?</span>
+            </label>
+          </div>
+
+          {!isAdminRegistration && (
+            <>
+              <label className="label font-semibold">Register As</label>
+              <select
+                name="role"
+                className="select w-full"
+                value={formData.role}
+                onChange={handleChange}
+                required
+              >
+                <option value={ROLES.STUDENT}>Student</option>
+                <option value={ROLES.TUTOR}>Tutor</option>
+              </select>
+            </>
+          )}
+
+          {isAdminRegistration && (
+             <div className="form-control w-full mt-2">
+               <label className="label font-semibold">Admin Token</label>
+               <input
+                 type="text"
+                 name="adminToken"
+                 placeholder="Enter secure admin token"
+                 className="input w-full input-bordered"
+                 value={formData.adminToken}
+                 onChange={handleChange}
+               />
+             </div>
+          )}
           
           <label className="label font-semibold">Password</label>
           <div className="relative w-full">

@@ -1,32 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { FaUserGraduate, FaStar, FaMapMarkerAlt, FaChalkboardTeacher, FaSearch } from 'react-icons/fa';
-import api from '../../utils/api';
 import { Link } from 'react-router-dom';
+import { TutorContext } from '../../context/TutorContext/TutorContext';
 
 const Tutors = () => {
-    const [tutors, setTutors] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { tutors, loading, fetchTutors } = useContext(TutorContext);
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         fetchTutors();
     }, []);
-
-    const fetchTutors = async () => {
-        try {
-            // Updated to use the correct backend endpoint for fetching tutors
-            // Assuming there's a /users/tutors endpoint or similar query on /users
-            const response = await api.get('/users?role=Tutor'); 
-            if (response.data.success) {
-                setTutors(response.data.users);
-            }
-        } catch (error) {
-            console.error('Failed to fetch tutors:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const filteredTutors = tutors.filter(tutor => 
         tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -87,7 +71,6 @@ const Tutors = () => {
                                             <FaMapMarkerAlt className="text-primary" />
                                             <span>{tutor.location || 'Location not set'}</span>
                                         </div>
-                                        {/* You can add more tutor details here like subjects, experience etc if available in the data */}
                                     </div>
 
                                     <div className="card-actions mt-6 w-full">

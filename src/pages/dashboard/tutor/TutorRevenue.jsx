@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaMoneyBillWave, FaCheckCircle } from 'react-icons/fa';
-import api from '../../../utils/api';
 import toast from 'react-hot-toast';
+import { TutorContext } from '../../../context/TutorContext/TutorContext';
 
 const TutorRevenue = () => {
-  const [payments, setPayments] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { myRevenue: payments, loading, fetchMyRevenue } = useContext(TutorContext);
   const [stats, setStats] = useState({
     totalRevenue: 0,
     completedPayments: 0,
@@ -14,31 +13,21 @@ const TutorRevenue = () => {
   });
 
   useEffect(() => {
-    fetchRevenue();
+    fetchMyRevenue();
   }, []);
 
-  const fetchRevenue = async () => {
-    try {
-      const response = await api.get('/payments/tutor-revenue');
-      if (response.data.success) {
-        setPayments(response.data.payments);
-
-        const completed = response.data.payments.filter((p) => p.status === 'Completed');
-        const totalRevenue = completed.reduce((sum, p) => sum + (p.tutorAmount || 0), 0);
-
-        setStats({
-          totalRevenue,
-          completedPayments: completed.length,
-          totalTransactions: response.data.payments.length,
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching revenue:', error);
-      toast.error('Failed to load revenue data');
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (payments) {
+      const completed = payments.filter((p) => p.status === 'Completed');
+      const totalRevenue = completed.reduce((sum, p) => sum + (p.tutorAmount || 0), 0);
+  
+      setStats({
+        totalRevenue,
+        completedPayments: completed.length,
+        totalTransactions: payments.length,
+      });
     }
-  };
+  }, [payments]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {

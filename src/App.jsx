@@ -5,10 +5,16 @@ import { Toaster } from 'react-hot-toast';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import AuthProvider from './context/AuthContext/AuthContext';
+import TuitionProvider from './context/TuitionContext/TuitionContext';
+import TutorProvider from './context/TutorContext/TutorContext';
+import AdminProvider from './context/AdminContext/AdminContext';
 
 function App() {
   return (
     <AuthProvider>
+      <TutorProvider>
+        <AdminProvider>
+          <TuitionProvider>
       <div className="flex flex-col min-h-screen">
         <Navbar />
 
@@ -21,7 +27,7 @@ function App() {
 
       {/* Toast Notifications */}
       <Toaster
-        position="top-right"
+        position="bottom-right"
         toastOptions={{
           duration: 3000,
           style: {
@@ -44,6 +50,9 @@ function App() {
           },
         }}
       />
+          </TuitionProvider>
+        </AdminProvider>
+      </TutorProvider>
     </AuthProvider>
   );
 }

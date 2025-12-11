@@ -1,59 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { motion } from 'framer-motion';
 import { FaMoneyBillWave, FaUsers, FaBook, FaChartLine } from 'react-icons/fa';
-import api from '../../../utils/api';
-import toast from 'react-hot-toast';
+import { AdminContext } from '../../../context/AdminContext/AdminContext';
 
 const Analytics = () => {
-  const [analytics, setAnalytics] = useState({
-    totalRevenue: 0,
-    platformFees: 0,
-    totalTransactions: 0,
-    avgTransaction: 0,
-    totalUsers: 0,
-    totalTuitions: 0,
-  });
-  const [payments, setPayments] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { stats, adminPayments, loading } = useContext(AdminContext);
 
-  useEffect(() => {
-    fetchAnalytics();
-  }, []);
-
-  const fetchAnalytics = async () => {
-    try {
-      const [earningsRes, usersRes, tuitionsRes] = await Promise.all([
-        api.get('/payments/platform-earnings'),
-        api.get('/users'),
-        api.get('/tuitions/pending'),
-      ]);
-
-      const stats = earningsRes.data.stats || {};
-      setAnalytics({
-        totalRevenue: stats.totalRevenue || 0,
-        platformFees: stats.totalPlatformFees || 0,
-        totalTransactions: stats.totalTransactions || 0,
-        avgTransaction: stats.averageTransaction || 0,
-        totalUsers: usersRes.data.users?.length || 0,
-        totalTuitions: tuitionsRes.data.tuitions?.length || 0,
-      });
-
-      setPayments(earningsRes.data.payments || []);
-    } catch (error) {
-      console.error('Error fetching analytics:', error);
-      toast.error('Failed to load analytics');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
+  if (loading || !stats) {
     return (
       <div className="flex justify-center items-center py-20">
         <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
   }
+
+  // Calculate generic platform fees (5% assumption as per component)
+  const platformFees = stats.totalRevenue * 0.05;
+  const avgTransaction = stats.totalTransactions > 0 ? stats.totalRevenue / stats.totalTransactions : 0;
 
   return (
     <div>
@@ -67,7 +30,7 @@ const Analytics = () => {
               <div>
                 <h2 className="card-title text-sm opacity-90">Total Revenue</h2>
                 <p className="text-3xl font-bold mt-2">
-                  ৳{analytics.totalRevenue.toLocaleString()}
+                  ৳{stats.totalRevenue?.toLocaleString()}
                 </p>
               </div>
               <FaMoneyBillWave className="text-4xl opacity-50" />
@@ -81,7 +44,7 @@ const Analytics = () => {
               <div>
                 <h2 className="card-title text-sm opacity-90">Platform Fees (5%)</h2>
                 <p className="text-3xl font-bold mt-2">
-                  ৳{analytics.platformFees.toLocaleString()}
+                  ৳{platformFees.toLocaleString()}
                 </p>
               </div>
               <FaChartLine className="text-4xl opacity-50" />
@@ -94,7 +57,7 @@ const Analytics = () => {
             <div className="flex justify-between items-start">
               <div>
                 <h2 className="card-title text-sm opacity-90">Transactions</h2>
-                <p className="text-3xl font-bold mt-2">{analytics.totalTransactions}</p>
+                <p className="text-3xl font-bold mt-2">{stats.totalTransactions}</p>
               </div>
               <FaBook className="text-4xl opacity-50" />
             </div>
@@ -107,7 +70,7 @@ const Analytics = () => {
               <div>
                 <h2 className="card-title text-sm opacity-90">Avg Transaction</h2>
                 <p className="text-3xl font-bold mt-2">
-                  ৳{Math.round(analytics.avgTransaction).toLocaleString()}
+                  ৳{Math.round(avgTransaction).toLocaleString()}
                 </p>
               </div>
               <FaMoneyBillWave className="text-4xl opacity-50" />
@@ -127,14 +90,14 @@ const Analytics = () => {
                   <FaUsers className="text-2xl text-primary" />
                   <span className="font-semibold">Total Users</span>
                 </div>
-                <span className="text-2xl font-bold">{analytics.totalUsers}</span>
+                <span className="text-2xl font-bold">{stats.totalUsers}</span>
               </div>
               <div className="flex justify-between items-center p-4 bg-base-200 rounded-lg">
                 <div className="flex items-center gap-3">
                   <FaBook className="text-2xl text-secondary" />
                   <span className="font-semibold">Total Tuitions</span>
                 </div>
-                <span className="text-2xl font-bold">{analytics.totalTuitions}</span>
+                <span className="text-2xl font-bold">{stats.totalTuitions}</span>
               </div>
               <div className="flex justify-between items-center p-4 bg-base-200 rounded-lg">
                 <div className="flex items-center gap-3">
@@ -143,8 +106,8 @@ const Analytics = () => {
                 </div>
                 <span className="text-2xl font-bold">
                   ৳
-                  {analytics.totalUsers > 0
-                    ? Math.round(analytics.totalRevenue / analytics.totalUsers).toLocaleString()
+                  {stats.totalUsers > 0
+                    ? Math.round(stats.totalRevenue / stats.totalUsers).toLocaleString()
                     : 0}
                 </span>
               </div>
@@ -159,31 +122,31 @@ const Analytics = () => {
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Platform Fees (5%)</span>
-                  <span className="font-bold">৳{analytics.platformFees.toLocaleString()}</span>
+                  <span className="font-bold">৳{platformFees.toLocaleString()}</span>
                 </div>
                 <progress
                   className="progress progress-success"
-                  value={analytics.platformFees}
-                  max={analytics.totalRevenue}
+                  value={platformFees}
+                  max={stats.totalRevenue}
                 ></progress>
               </div>
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Tutor Earnings (95%)</span>
                   <span className="font-bold">
-                    ৳{(analytics.totalRevenue - analytics.platformFees).toLocaleString()}
+                    ৳{(stats.totalRevenue - platformFees).toLocaleString()}
                   </span>
                 </div>
                 <progress
                   className="progress progress-primary"
-                  value={analytics.totalRevenue - analytics.platformFees}
-                  max={analytics.totalRevenue}
+                  value={stats.totalRevenue - platformFees}
+                  max={stats.totalRevenue}
                 ></progress>
               </div>
               <div className="divider"></div>
               <div className="flex justify-between text-lg font-bold">
                 <span>Total Revenue</span>
-                <span className="text-success">৳{analytics.totalRevenue.toLocaleString()}</span>
+                <span className="text-success">৳{stats.totalRevenue?.toLocaleString()}</span>
               </div>
             </div>
           </div>
@@ -194,7 +157,7 @@ const Analytics = () => {
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="card-title mb-4">Recent Transactions</h2>
-          {payments.length === 0 ? (
+          {(!adminPayments || adminPayments.length === 0) ? (
             <div className="text-center py-10 text-gray-500">No transactions yet</div>
           ) : (
             <div className="overflow-x-auto">
@@ -210,18 +173,20 @@ const Analytics = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {payments.slice(0, 10).map((payment, index) => (
+                  {adminPayments.slice(0, 10).map((payment, index) => (
                     <motion.tr
                       key={payment._id}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
                     >
-                      <td>{new Date(payment.createdAt).toLocaleDateString()}</td>
-                      <td>{payment.studentId?.name}</td>
-                      <td>{payment.tutorId?.name}</td>
+                      <td>{new Date(payment.createdAt || payment.date).toLocaleDateString()}</td>
+                      <td>{payment.studentId?.name || 'Unknown'}</td>
+                      <td>{payment.tutorId?.name || 'Unknown'}</td>
                       <td className="font-bold">৳{payment.amount?.toLocaleString()}</td>
-                      <td className="text-success">৳{payment.platformFee?.toLocaleString()}</td>
+                      {/* Assuming logic for fee if not present in payment object, but usually it might be. 
+                          If not, calculating 5% dynamically */}
+                      <td className="text-success">৳{(payment.platformFee || (payment.amount * 0.05))?.toLocaleString()}</td>
                       <td>
                         <div
                           className={`badge ${

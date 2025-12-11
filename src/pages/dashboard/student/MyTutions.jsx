@@ -1,33 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaEdit, FaTrash, FaPlus, FaEye } from 'react-icons/fa';
-import api from '../../../utils/api';
 import toast from 'react-hot-toast';
+import { TuitionContext } from '../../../context/TuitionContext/TuitionContext';
 
 const MyTuitions = () => {
-  const [tuitions, setTuitions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { tuitions, loading, updateTuition, deleteTuition } = useContext(TuitionContext);
+  
   const [editingTuition, setEditingTuition] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
-
-  useEffect(() => {
-    fetchMyTuitions();
-  }, []);
-
-  const fetchMyTuitions = async () => {
-    try {
-      const response = await api.get('/tuitions/my-tuitions');
-      if (response.data.success) {
-        setTuitions(response.data.tuitions);
-      }
-    } catch (error) {
-      console.error('Error fetching tuitions:', error);
-      toast.error('Failed to load your tuitions');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleEdit = (tuition) => {
     setEditingTuition(tuition);
@@ -36,32 +18,15 @@ const MyTuitions = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    try {
-      const response = await api.patch(`/tuitions/${editingTuition._id}`, editingTuition);
-      if (response.data.success) {
-        toast.success('Tuition updated successfully');
-        setShowEditModal(false);
-        fetchMyTuitions();
-      }
-    } catch (error) {
-      console.error('Update error:', error);
-      toast.error('Failed to update tuition');
+    const result = await updateTuition(editingTuition._id, editingTuition);
+    if (result.success) {
+      setShowEditModal(false);
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this tuition?')) return;
-
-    try {
-      const response = await api.delete(`/tuitions/${id}`);
-      if (response.data.success) {
-        toast.success('Tuition deleted successfully');
-        fetchMyTuitions();
-      }
-    } catch (error) {
-      console.error('Delete error:', error);
-      toast.error('Failed to delete tuition');
-    }
+    await deleteTuition(id);
   };
 
   const getStatusBadge = (status) => {

@@ -1,63 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaUserEdit, FaTrash, FaUserShield } from 'react-icons/fa';
-import api from '../../../utils/api';
 import toast from 'react-hot-toast';
+import { AdminContext } from '../../../context/AdminContext/AdminContext';
 
 const UserManagement = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { users, loading, fetchUsers, deleteUser, updateUserRole } = useContext(AdminContext);
   const [filter, setFilter] = useState('All');
-  const [editingUser, setEditingUser] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    try {
-      const response = await api.get('/users');
-      if (response.data.success) {
-        setUsers(response.data.users);
-      }
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      toast.error('Failed to load users');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleRoleChange = async (userId, newRole) => {
     if (!window.confirm(`Change user role to ${newRole}?`)) return;
-
-    try {
-      const response = await api.patch(`/users/${userId}/role`, { role: newRole });
-      if (response.data.success) {
-        toast.success('User role updated');
-        fetchUsers();
-      }
-    } catch (error) {
-      console.error('Role change error:', error);
-      toast.error('Failed to update role');
-    }
+    await updateUserRole(userId, newRole);
   };
 
   const handleDeleteUser = async (userId) => {
     if (!window.confirm('Are you sure you want to delete this user? This action cannot be undone.'))
       return;
-
-    try {
-      const response = await api.delete(`/users/${userId}`);
-      if (response.data.success) {
-        toast.success('User deleted');
-        fetchUsers();
-      }
-    } catch (error) {
-      console.error('Delete error:', error);
-      toast.error('Failed to delete user');
-    }
+    await deleteUser(userId);
   };
 
   const filteredUsers = filter === 'All' ? users : users.filter((u) => u.role === filter);

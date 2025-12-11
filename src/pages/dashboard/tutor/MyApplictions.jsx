@@ -1,33 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import api from '../../../utils/api';
 import toast from 'react-hot-toast';
+import { TutorContext } from '../../../context/TutorContext/TutorContext';
 
 const MyApplications = () => {
-  const [applications, setApplications] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { myApplications: applications, loading, fetchMyApplications, updateApplication, deleteApplication } = useContext(TutorContext);
+  
   const [editingApp, setEditingApp] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
-    fetchApplications();
+    fetchMyApplications();
   }, []);
-
-  const fetchApplications = async () => {
-    try {
-      const response = await api.get('/applications/my-applications');
-      if (response.data.success) {
-        setApplications(response.data.applications);
-      }
-    } catch (error) {
-      console.error('Error fetching applications:', error);
-      toast.error('Failed to load applications');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleEdit = (app) => {
     if (app.status !== 'Pending') {
@@ -40,22 +26,15 @@ const MyApplications = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    try {
-      const response = await api.patch(`/applications/${editingApp._id}`, {
+    const result = await updateApplication(editingApp._id, {
         qualifications: editingApp.qualifications,
         experience: editingApp.experience,
         expectedSalary: editingApp.expectedSalary,
         message: editingApp.message
-      });
-      
-      if (response.data.success) {
-        toast.success('Application updated successfully');
-        setShowEditModal(false);
-        fetchApplications();
-      }
-    } catch (error) {
-      console.error('Update error:', error);
-      toast.error(error.response?.data?.message || 'Failed to update');
+    });
+    
+    if (result.success) {
+      setShowEditModal(false);
     }
   };
 
@@ -66,17 +45,7 @@ const MyApplications = () => {
     }
 
     if (!window.confirm('Are you sure you want to delete this application?')) return;
-
-    try {
-      const response = await api.delete(`/applications/${id}`);
-      if (response.data.success) {
-        toast.success('Application deleted');
-        fetchApplications();
-      }
-    } catch (error) {
-      console.error('Delete error:', error);
-      toast.error('Failed to delete application');
-    }
+    await deleteApplication(id);
   };
 
   const getStatusBadge = (status) => {

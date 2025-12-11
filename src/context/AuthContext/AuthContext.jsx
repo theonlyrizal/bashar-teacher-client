@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
 
   // Register with email and password
-  const registerWithEmail = async (name, email, password, role, phone) => {
+  const registerWithEmail = async (name, email, password, role, phone, adminToken = null) => {
     try {
       // Create Firebase account
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -40,6 +40,7 @@ const AuthProvider = ({ children }) => {
         phone,
         photoURL: userCredential.user.photoURL || 'https://i.ibb.co/4pDNDk1/avatar.png',
         firebaseUid: userCredential.user.uid,
+        adminToken, // Optional Token
       });
 
       if (response.data.success) {
@@ -109,6 +110,28 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Google login error:', error);
       toast.error(error.response?.data?.message || 'Google login failed');
+      throw error;
+    }
+  };
+
+  // Admin Login (Token Only - Bypasses Firebase)
+  const loginAsAdmin = async (adminToken) => {
+    try {
+      const response = await api.post('/auth/login', {
+        adminToken, // Send only token
+      });
+
+      if (response.data.success) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        setToken(response.data.token);
+        setUser(response.data.user);
+        toast.success('Admin Login successful!');
+        return response.data;
+      }
+    } catch (error) {
+      console.error('Admin Login error:', error);
+      toast.error(error.response?.data?.message || 'Admin Token Invalid');
       throw error;
     }
   };
@@ -197,6 +220,7 @@ const AuthProvider = ({ children }) => {
     registerWithEmail,
     loginWithEmail,
     loginWithGoogle,
+    loginAsAdmin, // Added this
     logout,
     updateUserProfile,
   };

@@ -11,18 +11,27 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isAdminLogin, setIsAdminLogin] = useState(false);
 
-  const { loginWithEmail, loginWithGoogle } = useAuth();
+  const { loginWithEmail, loginWithGoogle, loginAsAdmin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleEmailLogin = async (e) => {
+  const [adminToken, setAdminToken] = useState('');
+
+  const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const data = await loginWithEmail(email, password);
-      // toast.success('Login Successful!'); // optional, native prompt might already handle or user didn't ask for it
+      let data;
+      if (isAdminLogin) {
+        // Admin Token Login
+        data = await loginAsAdmin(adminToken); 
+      } else {
+        // Regular Login
+        data = await loginWithEmail(email, password);
+      }
       
       // Redirect based on role
       if (data.user.role === 'Admin') {
@@ -34,7 +43,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(error.message);
+      // Toast handled in context
     } finally {
       setLoading(false);
     }
@@ -66,57 +75,98 @@ const Login = () => {
     <SectionBody>
       <div className="flex flex-col justify-center items-center p-5">
         <h1 className="text-primary text-4xl font-bold">
-           Login to Bashar Teacher
+           {isAdminLogin ? 'Admin Portal' : 'Login to Bashar Teacher'}
         </h1>
       </div>
 
-      <form onSubmit={handleEmailLogin}>
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs md:w-96 border p-4 shadow-xl">
-          <legend className="text-3xl text-primary font-bold px-2">Login</legend>
+      <form onSubmit={handleLogin}>
+        <fieldset className={`fieldset border-base-300 rounded-box w-xs md:w-96 border p-4 shadow-xl ${isAdminLogin ? 'bg-error/5 border-error/30' : 'bg-base-200'}`}>
+          <legend className={`text-3xl font-bold px-2 ${isAdminLogin ? 'text-error' : 'text-primary'}`}>
+            {isAdminLogin ? 'Admin Token' : 'Login'}
+          </legend>
 
-          <label className="label font-semibold">Email</label>
-          <input
-            type="email"
-            className="input w-full"
-            placeholder="email@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          {isAdminLogin ? (
+            // Admin Token Input
+            <div className="form-control w-full">
+               <label className="label font-semibold">Secure Admin Token</label>
+               <input
+                 type="password"
+                 className="input w-full input-error"
+                 placeholder="Enter secure token"
+                 value={adminToken}
+                 onChange={(e) => setAdminToken(e.target.value)}
+                 required
+               />
+               <label className="label text-xs text-gray-500">
+                  Enter the server-side ADMIN_TOKEN to bypass authentication.
+               </label>
+            </div>
+          ) : (
+            // Regular Email/Pass Inputs
+            <>
+              <label className="label font-semibold">Email</label>
+              <input
+                type="email"
+                className="input w-full"
+                placeholder="email@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
 
-          <label className="label font-semibold">Password</label>
-          <div className="relative w-full">
-            <input
-              type={showPassword ? 'text' : 'password'}
-              className="input w-full pr-10"
-              placeholder="******"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button
-              type="button"
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-xl text-gray-500 hover:text-gray-700"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-            </button>
+              <label className="label font-semibold">Password</label>
+              <div className="relative w-full">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  className="input w-full pr-10"
+                  placeholder="******"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-xl text-gray-500 hover:text-gray-700"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </button>
+              </div>
+            </>
+          )}
+
+          <button type="submit" className={`btn mt-6 w-full ${isAdminLogin ? 'btn-error text-white' : 'btn-primary'}`} disabled={loading}>
+            {loading ? <span className="loading loading-spinner"></span> : (isAdminLogin ? 'Authenticate' : 'Login')}
+          </button>
+
+          {!isAdminLogin && (
+            <>
+              <div className="divider my-4">OR</div>
+
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="btn btn-outline btn-primary w-full"
+                disabled={loading}
+              >
+                <FaGoogle /> <p>Continue with Google</p>
+              </button>
+            </>
+          )}
+
+          <div className="mt-4 text-center">
+             <div className="form-control">
+               <label className="label cursor-pointer justify-center gap-2">
+                 <input 
+                   type="checkbox" 
+                   checked={isAdminLogin} 
+                   onChange={(e) => setIsAdminLogin(e.target.checked)} 
+                   className="checkbox checkbox-error checkbox-sm"
+                 />
+                 <span className={`label-text font-medium ${isAdminLogin ? 'text-error' : 'text-gray-500'}`}>Login as Admin</span>
+               </label>
+             </div>
           </div>
-
-          <button type="submit" className="btn btn-primary mt-4 w-full" disabled={loading}>
-            {loading ? <span className="loading loading-spinner"></span> : 'Login'}
-          </button>
-
-          <div className="divider my-4">OR</div>
-
-          <button
-            type="button"
-            onClick={handleGoogleLogin}
-            className="btn btn-outline btn-primary w-full"
-            disabled={loading}
-          >
-            <FaGoogle /> <p>Continue with Google</p>
-          </button>
         </fieldset>
       </form>
 
