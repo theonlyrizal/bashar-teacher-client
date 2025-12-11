@@ -7,27 +7,25 @@ import RoleBasedRoute from './RoleBasedRoute';
 import Home from '../pages/home/Home';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
-import TuitionsListing from '../pages/tuitions/TuitionsListing';
-import TuitionDetails from '../pages/tuitions/TuitionDetails';
 import ErrorPage from '../pages/error/ErrorPage';
-
-// Dashboard Pages
+import TuitionsListing from '../pages/tuitions/TutionListings';
+import TuitionDetails from '../pages/tuitions/TutionsDetails';
 import StudentDashboard from '../pages/dashboard/student/StudentDashboard';
-import MyTuitions from '../pages/dashboard/student/MyTuitions';
-import PostTuition from '../pages/dashboard/student/PostTuition';
+import MyTuitions from '../pages/dashboard/student/MyTutions';
+import PostTuition from '../pages/dashboard/student/PostTution';
 import AppliedTutors from '../pages/dashboard/student/AppliedTutors';
 import StudentPayments from '../pages/dashboard/student/StudentPayments';
 import StudentProfile from '../pages/dashboard/student/StudentProfile';
-
 import TutorDashboard from '../pages/dashboard/tutor/TutorDashBoard';
-import MyApplications from '../pages/dashboard/tutor/MyApplications';
-import OngoingTuitions from '../pages/dashboard/tutor/OngoingTuitions';
+import MyApplications from '../pages/dashboard/tutor/MyApplictions';
+import OngoingTuitions from '../pages/dashboard/tutor/OnGoingTutions';
 import TutorRevenue from '../pages/dashboard/tutor/TutorRevenue';
-
 import AdminDashboard from '../pages/dashboard/admin/AdminDashboard';
 import UserManagement from '../pages/dashboard/admin/UserManagement';
-import TuitionManagement from '../pages/dashboard/admin/TuitionManagement';
+import TuitionManagement from '../pages/dashboard/admin/TutionManagement';
 import Analytics from '../pages/dashboard/admin/Analytics';
+
+// Dashboard Pages
 
 export const routes = createBrowserRouter([
   {
