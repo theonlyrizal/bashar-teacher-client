@@ -231,7 +231,10 @@ const TuitionsListing = () => {
                 >
                   <div className="card-body">
                     <div className="flex justify-between items-start">
-                      <h2 className="card-title text-primary">{tuition.subject}</h2>
+                      <div>
+                          <h2 className="card-title text-primary">{tuition.title || tuition.subject}</h2>
+                          <div className="badge badge-ghost badge-sm mt-1">{tuition.subject}</div>
+                      </div>
                       <div className="badge badge-secondary">{tuition.class}</div>
                     </div>
                     

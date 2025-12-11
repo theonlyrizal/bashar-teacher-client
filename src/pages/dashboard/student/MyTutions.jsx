@@ -76,7 +76,8 @@ const MyTuitions = () => {
               <div className="card-body">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <h2 className="card-title text-2xl text-primary">{tuition.subject}</h2>
+                    <h2 className="card-title text-2xl text-primary">{tuition.title || tuition.subject}</h2>
+                    <p className="text-sm font-semibold text-gray-500 mb-1">{tuition.subject}</p>
                     <div className="flex gap-2 mt-2">
                       <div className="badge badge-secondary">{tuition.class}</div>
                       <div className={`badge ${getStatusBadge(tuition.status)}`}>

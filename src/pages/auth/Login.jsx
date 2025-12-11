@@ -105,33 +105,33 @@ const Login = () => {
             // Regular Email/Pass Inputs
             <>
               <label className="label font-semibold">Email</label>
-              <input
-                type="email"
-                className="input w-full"
-                placeholder="email@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-
-              <label className="label font-semibold">Password</label>
-              <div className="relative w-full">
                 <input
-                  type={showPassword ? 'text' : 'password'}
-                  className="input w-full pr-10"
-                  placeholder="******"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  type="email"
+                className="input w-full"
+                  placeholder="email@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <button
-                  type="button"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-xl text-gray-500 hover:text-gray-700"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                </button>
-              </div>
+
+              <label className="label font-semibold">Password</label>
+                <div className="relative w-full">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                  className="input w-full pr-10"
+                    placeholder="******"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-xl text-gray-500 hover:text-gray-700"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                  </button>
+                </div>
             </>
           )}
 

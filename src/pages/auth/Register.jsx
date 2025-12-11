@@ -99,138 +99,153 @@ const Register = () => {
       </div>
 
       <form onSubmit={handleSubmit}>
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs md:w-96 border p-4 shadow-xl">
-          <legend className="text-3xl text-primary font-bold px-2">Register</legend>
+        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full max-w-3xl border p-8 shadow-xl">
+          <legend className="text-3xl text-primary font-bold px-2 text-center w-full mb-6">Register</legend>
 
-          <label className="label font-semibold">Full Name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            className="input w-full"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-
-          <label className="label font-semibold">Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="email@example.com"
-            className="input w-full"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-
-          <label className="label font-semibold">Phone Number</label>
-          <input
-            type="tel"
-            name="phone"
-            placeholder="0123456789"
-            className="input w-full"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-
-          
-          {/* Admin Toggle */}
-          <div className="form-control">
-            <label className="label cursor-pointer justify-start gap-4">
-              <input 
-                type="checkbox" 
-                checked={isAdminRegistration} 
-                onChange={(e) => setIsAdminRegistration(e.target.checked)} 
-                className="checkbox checkbox-primary" 
-              />
-              <span className="label-text font-semibold">Are you an admin?</span>
-            </label>
-          </div>
-
-          {!isAdminRegistration && (
-            <>
-              <label className="label font-semibold">Register As</label>
-              <select
-                name="role"
-                className="select w-full"
-                value={formData.role}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            {/* Row 1: Name & Email */}
+            <div className="form-control">
+              <label className="label font-semibold">Full Name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                className="input w-full"
+                value={formData.name}
                 onChange={handleChange}
                 required
-              >
-                <option value={ROLES.STUDENT}>Student</option>
-                <option value={ROLES.TUTOR}>Tutor</option>
-              </select>
-            </>
-          )}
+              />
+            </div>
 
-          {isAdminRegistration && (
-             <div className="form-control w-full mt-2">
-               <label className="label font-semibold">Admin Token</label>
-               <input
-                 type="text"
-                 name="adminToken"
-                 placeholder="Enter secure admin token"
-                 className="input w-full input-bordered"
-                 value={formData.adminToken}
-                 onChange={handleChange}
-               />
-             </div>
-          )}
-          
-          <label className="label font-semibold">Password</label>
-          <div className="relative w-full">
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              className="input w-full pr-10"
-              placeholder="Min 6 chars"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-             <button
-              type="button"
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-xl text-gray-500 hover:text-gray-700"
-              onClick={() => setShowPassword(!showPassword)}
+            <div className="form-control">
+              <label className="label font-semibold">Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="email@example.com"
+                className="input w-full"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            {/* Row 2: Phone & Role/Token */}
+            <div className="form-control">
+              <label className="label font-semibold">Phone Number</label>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="0123456789"
+                className="input w-full"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+            </div>
+
+            {!isAdminRegistration ? (
+              <div className="form-control">
+                <label className="label font-semibold">Register As</label>
+                <select
+                  name="role"
+                  className="select w-full"
+                  value={formData.role}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value={ROLES.STUDENT}>Student</option>
+                  <option value={ROLES.TUTOR}>Tutor</option>
+                </select>
+              </div>
+            ) : (
+              <div className="form-control">
+                <label className="label font-semibold">Admin Token</label>
+                <input
+                  type="text"
+                  name="adminToken"
+                  placeholder="Enter secure admin token"
+                  className="input w-full input-bordered"
+                  value={formData.adminToken}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+
+            {/* Row 3: Passwords */}
+            <div className="form-control">
+              <label className="label font-semibold">Password</label>
+              <div className="relative w-full">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  className="input w-full pr-10"
+                  placeholder="Min 6 chars"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                 <button
+                  type="button"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-xl text-gray-500 hover:text-gray-700"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </button>
+              </div>
+              {/* Validation Feedback below input */}
+               <div className="mt-2 pl-1">
+                <ul className="text-xs space-y-1">
+                  <li className={`${sixChar ? 'text-success' : 'text-error'} flex items-center transition-colors duration-200`}>
+                    <FaArrowRight className="mr-2" /> 6 chars
+                  </li>
+                  <li className={`${upper ? 'text-success' : 'text-error'} flex items-center transition-colors duration-200`}>
+                    <FaArrowRight className="mr-2" /> Upper Case
+                  </li>
+                  <li className={`${lower ? 'text-success' : 'text-error'} flex items-center transition-colors duration-200`}>
+                    <FaArrowRight className="mr-2" /> Lower Case
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="form-control">
+              <label className="label font-semibold">Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                className="input w-full"
+                placeholder="Confirm Password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+          </div>
+
+          {/* Admin Toggle & Submit - Full Width */}
+          <div className="mt-6">
+            <div className="form-control mb-4">
+                <label className="label cursor-pointer justify-start gap-4">
+                  <input 
+                    type="checkbox" 
+                    checked={isAdminRegistration} 
+                    onChange={(e) => setIsAdminRegistration(e.target.checked)} 
+                    className="checkbox checkbox-primary" 
+                  />
+                  <span className="label-text font-semibold">Are you an admin?</span>
+                </label>
+            </div>
+
+            <button 
+                type="submit" 
+                className="btn btn-primary w-full duration-300" 
+                disabled={loading || !(sixChar && upper && lower)}
             >
-              {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                {loading ? <span className="loading loading-spinner"></span> : 'Register'}
             </button>
           </div>
-
-          {/* Validation Feedback */}
-          <div className="mt-2 pl-1">
-            <ul className="text-sm space-y-1">
-              <li className={`${sixChar ? 'text-success' : 'text-error'} flex items-center transition-colors duration-200`}>
-                <FaArrowRight className="mr-2 text-xs" /> 6 characters long
-              </li>
-              <li className={`${upper ? 'text-success' : 'text-error'} flex items-center transition-colors duration-200`}>
-                <FaArrowRight className="mr-2 text-xs" /> At least one Upper Case
-              </li>
-              <li className={`${lower ? 'text-success' : 'text-error'} flex items-center transition-colors duration-200`}>
-                <FaArrowRight className="mr-2 text-xs" /> At least one Lower Case
-              </li>
-            </ul>
-          </div>
-
-          <label className="label font-semibold mt-2">Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            className="input w-full"
-            placeholder="Confirm Password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-
-          <button 
-            type="submit" 
-            className="btn btn-primary mt-6 w-full duration-300" 
-            disabled={loading || !(sixChar && upper && lower)}
-          >
-            {loading ? <span className="loading loading-spinner"></span> : 'Register'}
-          </button>
         </fieldset>
       </form>
       

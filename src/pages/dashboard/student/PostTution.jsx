@@ -138,7 +138,21 @@ const PostTuition = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6">
                 
-                {/* 1. Basic Info Row */}
+                {/* 1. Title (Full Width) */}
+                <div className="form-control">
+                    <label className="label font-bold text-gray-700">Tuition Title</label>
+                    <input 
+                        type="text" 
+                        name="title" 
+                        className={inputClass} 
+                        placeholder="e.g., Need Math Tutor for Class 10" 
+                        value={formData.title || ''} 
+                        onChange={handleChange} 
+                        required 
+                    />
+                </div>
+
+                {/* 2. Basic Info Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Multi-Select Subject */}
                     <div className="form-control">
@@ -151,8 +165,6 @@ const PostTuition = () => {
                             <option value="" disabled>Select Subjects (Pick multiple)</option>
                             {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
                         </select>
-                        
-                        {/* Selected Subjects Chips */}
                         <div className="flex flex-wrap gap-2 mt-2">
                              {formData.subject.map(s => (
                                  <div key={s} className="badge badge-primary badge-lg gap-2 text-white p-3">
@@ -173,7 +185,7 @@ const PostTuition = () => {
                     </div>
                 </div>
 
-                {/* 2. Location & Budget */}
+                {/* 3. Location & Budget */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                      <div className="form-control">
                         <label className="label font-bold text-gray-700">Location</label>
@@ -200,7 +212,7 @@ const PostTuition = () => {
                     </div>
                 </div>
 
-                {/* 3. Schedule & Duration */}
+                {/* 4. Schedule & Duration */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Days Selection */}
                     <div className="form-control">
@@ -252,30 +264,32 @@ const PostTuition = () => {
                     </div>
                 </div>
 
-                {/* 4. Requirements (Auto-Resize) */}
-                <div className="form-control">
-                    <label className="label font-bold text-gray-700">Additional Requirements</label>
-                    <textarea 
-                        name="requirements" 
-                        className={`textarea textarea-bordered w-full overflow-hidden resize-none min-h-[3rem] focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary`} 
-                        placeholder="Describe any specific requirements..."
-                        value={formData.requirements} 
-                        onChange={handleTextareaChange} 
-                        rows={1}
-                    />
-                </div>
+                {/* 5. Requirements & Contact */}
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="form-control md:col-span-2">
+                        <label className="label font-bold text-gray-700">Additional Requirements</label>
+                        <textarea 
+                            name="requirements" 
+                            className={`textarea textarea-bordered w-full overflow-hidden resize-none min-h-[3rem] focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary`} 
+                            placeholder="Describe any specific requirements..."
+                            value={formData.requirements} 
+                            onChange={handleTextareaChange} 
+                            rows={1}
+                        />
+                    </div>
 
-                <div className="form-control">
-                    <label className="label font-bold text-gray-700">Contact Number</label>
-                     <input 
-                        type="tel" 
-                        name="contactInfo" 
-                        className={inputClass} 
-                        placeholder="01XXXXXXXXX" 
-                        value={formData.contactInfo} 
-                        onChange={handleChange} 
-                        required 
-                    />
+                    <div className="form-control md:col-span-2">
+                        <label className="label font-bold text-gray-700">Contact Number</label>
+                         <input 
+                            type="tel" 
+                            name="contactInfo" 
+                            className={inputClass} 
+                            placeholder="01XXXXXXXXX" 
+                            value={formData.contactInfo} 
+                            onChange={handleChange} 
+                            required 
+                        />
+                    </div>
                 </div>
 
                 {/* Footer Actions */}

@@ -108,7 +108,8 @@ const TuitionDetails = () => {
           <div className="bg-base-100 rounded-lg shadow-xl p-8 mb-6">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h1 className="text-4xl font-bold text-primary mb-2">{tuition.subject}</h1>
+                <h1 className="text-4xl font-bold text-primary mb-2">{tuition.title || tuition.subject}</h1>
+                <div className="text-xl text-gray-600 mb-2 font-semibold">Subject: {tuition.subject}</div>
                 <div className="badge badge-secondary badge-lg">{tuition.class}</div>
               </div>
               <div className="text-right">
@@ -208,29 +209,30 @@ const TuitionDetails = () => {
       {/* Apply Modal */}
       {showApplyModal && (
         <div className="modal modal-open">
-          <div className="modal-box max-w-2xl">
-            <h3 className="font-bold text-2xl mb-4">Apply for Tuition</h3>
-            <form onSubmit={handleApplicationSubmit}>
-              <div className="form-control mb-4">
-                <label className="label">
-                  <span className="label-text">Name</span>
-                </label>
-                <input type="text" value={user?.name} className="input input-bordered" disabled />
+          <div className="modal-box max-w-2xl bg-white/90 backdrop-blur-md border border-white/50 shadow-2xl">
+            <h3 className="font-bold text-3xl mb-6 text-center text-primary">Apply for Tuition</h3>
+            <button 
+                onClick={() => setShowApplyModal(false)} 
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            >✕</button>
+            
+            <form onSubmit={handleApplicationSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="form-control">
+                    <label className="label font-semibold text-gray-700">Name</label>
+                    <input type="text" value={user?.name} className="input input-bordered w-full bg-white/50" disabled />
+                  </div>
+
+                  <div className="form-control">
+                    <label className="label font-semibold text-gray-700">Email</label>
+                    <input type="email" value={user?.email} className="input input-bordered w-full bg-white/50" disabled />
+                  </div>
               </div>
 
-              <div className="form-control mb-4">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input type="email" value={user?.email} className="input input-bordered" disabled />
-              </div>
-
-              <div className="form-control mb-4">
-                <label className="label">
-                  <span className="label-text">Qualifications *</span>
-                </label>
+              <div className="form-control">
+                <label className="label font-semibold text-gray-700">Qualifications <span className="text-error">*</span></label>
                 <textarea
-                  className="textarea textarea-bordered h-24"
+                  className="textarea textarea-bordered h-24 w-full bg-white/50"
                   placeholder="Your educational qualifications, degrees, certifications..."
                   value={applicationData.qualifications}
                   onChange={(e) =>
@@ -240,12 +242,10 @@ const TuitionDetails = () => {
                 />
               </div>
 
-              <div className="form-control mb-4">
-                <label className="label">
-                  <span className="label-text">Experience *</span>
-                </label>
+              <div className="form-control">
+                <label className="label font-semibold text-gray-700">Experience <span className="text-error">*</span></label>
                 <textarea
-                  className="textarea textarea-bordered h-24"
+                  className="textarea textarea-bordered h-24 w-full bg-white/50"
                   placeholder="Your teaching experience, years of experience, subjects taught..."
                   value={applicationData.experience}
                   onChange={(e) =>
@@ -255,13 +255,11 @@ const TuitionDetails = () => {
                 />
               </div>
 
-              <div className="form-control mb-4">
-                <label className="label">
-                  <span className="label-text">Expected Salary (৳/month) *</span>
-                </label>
+              <div className="form-control">
+                <label className="label font-semibold text-gray-700">Expected Salary (৳/month) <span className="text-error">*</span></label>
                 <input
                   type="number"
-                  className="input input-bordered"
+                  className="input input-bordered w-full bg-white/50"
                   placeholder="e.g., 5000"
                   value={applicationData.expectedSalary}
                   onChange={(e) =>
@@ -272,12 +270,10 @@ const TuitionDetails = () => {
                 />
               </div>
 
-              <div className="form-control mb-6">
-                <label className="label">
-                  <span className="label-text">Message (Optional)</span>
-                </label>
+              <div className="form-control">
+                <label className="label font-semibold text-gray-700">Message (Optional)</label>
                 <textarea
-                  className="textarea textarea-bordered h-24"
+                  className="textarea textarea-bordered h-24 w-full bg-white/50"
                   placeholder="Any additional message or information..."
                   value={applicationData.message}
                   onChange={(e) =>
@@ -295,7 +291,7 @@ const TuitionDetails = () => {
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn btn-primary" disabled={submitting}>
+                <button type="submit" className="btn btn-primary px-8" disabled={submitting}>
                   {submitting ? (
                     <span className="loading loading-spinner"></span>
                   ) : (
