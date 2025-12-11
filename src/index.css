@@ -1,1 +1,166 @@
 @import 'tailwindcss';
+@plugin 'daisyui';
+
+/* 🧁 Light Theme */
+@plugin "daisyui/theme" {
+  name: 'basharteacher';
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #ffffff;
+  --color-base-200: oklch(95% 0.03 240);
+  --color-base-300: oklch(92% 0.04 240);
+  --color-base-content: oklch(20% 0.05 240);
+
+  --color-primary: #6366f1;
+  --color-primary-content: oklch(98% 0.01 240);
+
+  --color-secondary: #8b5cf6;
+  --color-secondary-content: oklch(98% 0.01 200);
+
+  --color-accent: #ec4899;
+  --color-accent-content: oklch(98% 0.01 160);
+
+  --color-neutral: oklch(50% 0.05 240);
+  --color-neutral-content: oklch(98% 0.01 240);
+
+  --color-info: oklch(70% 0.2 220);
+  --color-info-content: oklch(98% 0.01 220);
+
+  --color-success: oklch(65% 0.25 140);
+  --color-success-content: oklch(98% 0.01 140);
+
+  --color-warning: oklch(80% 0.25 80);
+  --color-warning-content: oklch(20% 0.05 80);
+
+  --color-error: oklch(65% 0.3 30);
+  --color-error-content: oklch(98% 0.01 30);
+
+  /* base sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* border size */
+  --border: 1px;
+}
+
+/* 🌒 Dark Theme */
+@plugin "daisyui/theme" {
+  name: 'basharteacher-dark';
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: #1c1c1c;
+  --color-base-200: #222;
+  --color-base-300: #2a2a2a;
+  --color-base-content: oklch(96% 0.02 240);
+
+  --color-primary: #818cf8;
+  --color-primary-content: oklch(15% 0.01 250);
+
+  --color-secondary: #a78bfa;
+  --color-secondary-content: oklch(10% 0.02 190);
+
+  --color-accent: #f472b6;
+  --color-accent-content: oklch(10% 0.01 150);
+
+  --color-neutral: oklch(30% 0.03 250);
+  --color-neutral-content: oklch(95% 0.02 250);
+
+  --color-info: oklch(70% 0.15 220);
+  --color-info-content: oklch(10% 0.01 220);
+
+  --color-success: oklch(65% 0.22 140);
+  --color-success-content: oklch(10% 0.02 140);
+
+  --color-warning: oklch(80% 0.22 80);
+  --color-warning-content: oklch(15% 0.02 80);
+
+  --color-error: oklch(65% 0.25 20);
+  --color-error-content: oklch(10% 0.02 20);
+
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+}
+
+.active {
+  @apply bg-primary rounded-full text-white font-bold;
+}
+
+/* Rounded Customizations */
+.btn {
+  @apply rounded-full;
+}
+.input, .select, .textarea, .file-input {
+  @apply rounded-2xl;
+}
+/* Liquid Glass Effect - Base Style */
+.card, .fieldset, .modal-box, .dropdown-content, .toast, .menu-dropdown-toggle {
+  @apply rounded-3xl backdrop-blur-xl border border-white/20 shadow-xl;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Navbar Specific - Needs visible overflow for dropdowns & sticky positioning */
+.navbar {
+  @apply rounded-full backdrop-blur-xl border border-white/20 shadow-xl;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  /* No overflow:hidden here to allow dropdowns */
+  /* No position:relative here to avoid conflicts with sticky utility */
+}
+
+/* Dark mode adjustments */
+[data-theme='basharteacher-dark'] .card, 
+[data-theme='basharteacher-dark'] .fieldset, 
+[data-theme='basharteacher-dark'] .modal-box, 
+[data-theme='basharteacher-dark'] .dropdown-content,
+[data-theme='basharteacher-dark'] .toast,
+[data-theme='basharteacher-dark'] .navbar {
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.5), rgba(40, 40, 40, 0.2));
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Noise Texture Overlay */
+.card::before, .fieldset::before, .modal-box::before, .dropdown-content::before, .navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+}
+.navbar::before {
+  border-radius: 9999px; /* Match navbar rounded-full */
+}
+
+
+/* Global Background */
+body {
+  background-color: var(--color-base-100);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+

@@ -35,6 +35,7 @@ const AuthProvider = ({ children }) => {
       const response = await api.post('/auth/register', {
         name,
         email,
+        password,
         role,
         phone,
         photoURL: userCredential.user.photoURL || 'https://i.ibb.co/4pDNDk1/avatar.png',
@@ -63,10 +64,10 @@ const AuthProvider = ({ children }) => {
       // Sign in with Firebase
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-      // Login to backend
+      // Login to backend (send email & password)
       const response = await api.post('/auth/login', {
         email,
-        firebaseUid: userCredential.user.uid,
+        password,
       });
 
       if (response.data.success) {
@@ -130,7 +131,8 @@ const AuthProvider = ({ children }) => {
   // Update user profile
   const updateUserProfile = async (updates) => {
     try {
-      const response = await api.patch(`/users/${user.id}`, updates);
+      const userId = user?._id || user?.id;
+      const response = await api.patch(`/users/${userId}`, updates);
       if (response.data.success) {
         const updatedUser = { ...user, ...updates };
         localStorage.setItem('user', JSON.stringify(updatedUser));

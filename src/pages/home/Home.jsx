@@ -280,7 +280,7 @@ const Home = () => {
             viewport={{ once: true, amount: 0.2 }}
             variants={fadeInUp}
           >
-            <h2 className="text-4xl font-bold text-center mb-4">How eTuitionBD Works</h2>
+            <h2 className="text-4xl font-bold text-center mb-4">How Bashar Teacher Works</h2>
             <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
               Simple, transparent, and efficient process to connect students with tutors
             </p>
@@ -337,7 +337,7 @@ const Home = () => {
             viewport={{ once: true, amount: 0.2 }}
             variants={fadeInUp}
           >
-            <h2 className="text-4xl font-bold text-center mb-4">Why Choose eTuitionBD?</h2>
+            <h2 className="text-4xl font-bold text-center mb-4">Why Choose Bashar Teacher?</h2>
             <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
               We provide a secure, efficient, and trusted platform for quality education
             </p>
@@ -397,7 +397,7 @@ const Home = () => {
           >
             <h2 className="text-4xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-xl mb-8 opacity-90">
-              Join thousands of students and tutors on eTuitionBD today
+              Join thousands of students and tutors on Bashar Teacher today
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/register" className="btn btn-lg bg-white text-primary hover:bg-gray-100">

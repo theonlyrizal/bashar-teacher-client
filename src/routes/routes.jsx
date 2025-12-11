@@ -8,6 +8,9 @@ import Home from '../pages/home/Home';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import ErrorPage from '../pages/error/ErrorPage';
+import Tutors from '../pages/tutors/Tutors';
+import About from '../pages/about/About';
+import Contact from '../pages/contact/Contact';
 import TuitionsListing from '../pages/tuitions/TutionListings';
 import TuitionDetails from '../pages/tuitions/TutionsDetails';
 import StudentDashboard from '../pages/dashboard/student/StudentDashboard';
@@ -24,6 +27,7 @@ import AdminDashboard from '../pages/dashboard/admin/AdminDashboard';
 import UserManagement from '../pages/dashboard/admin/UserManagement';
 import TuitionManagement from '../pages/dashboard/admin/TutionManagement';
 import Analytics from '../pages/dashboard/admin/Analytics';
+import PaymentSuccessPage from '../pages/dashboard/student/PaymentSuccessPage';
 
 // Dashboard Pages
 
@@ -52,6 +56,18 @@ export const routes = createBrowserRouter([
       {
         path: '/tuitions/:id',
         element: <TuitionDetails />,
+      },
+      {
+        path: '/tutors',
+        element: <Tutors />,
+      },
+      {
+        path: '/about',
+        element: <About />,
+      },
+      {
+        path: '/contact',
+        element: <Contact />,
       },
       // Student Dashboard Routes
       {
@@ -120,6 +136,19 @@ export const routes = createBrowserRouter([
           <ProtectedRoute>
             <RoleBasedRoute allowedRoles={['Student']}>
               <StudentProfile />
+            </RoleBasedRoute>
+          </ProtectedRoute>
+        ),
+      },
+      // --- NEW STRIPE SUCCESS ROUTE ---
+      {
+        // Note: This path should match the success_url format from your backend,
+        // but the query parameters are handled by the component, not the path definition itself.
+        path: '/dashboard/payment/success',
+        element: (
+          <ProtectedRoute>
+            <RoleBasedRoute allowedRoles={['Student']}>
+              <PaymentSuccessPage />
             </RoleBasedRoute>
           </ProtectedRoute>
         ),

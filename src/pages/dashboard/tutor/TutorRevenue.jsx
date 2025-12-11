@@ -190,7 +190,7 @@ const TutorRevenue = () => {
           ></path>
         </svg>
         <span>
-          eTuitionBD charges a 5% platform fee on all transactions to maintain and improve our
+          Bashar Teacher charges a 5% platform fee on all transactions to maintain and improve our
           services.
         </span>
       </div>
