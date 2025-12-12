@@ -28,10 +28,9 @@ const AdminProvider = ({ children }) => {
     }
   };
 
-  // Update User Role
   const updateUserRole = async (userId, newRole) => {
       try {
-          const response = await api.patch(`/users/${userId}/role`, { role: newRole });
+          const response = await api.patch(`/users/${userId}`, { role: newRole });
           if (response.data.success || response.data.modifiedCount > 0) {
               toast.success('User role updated successfully');
               fetchUsers();
