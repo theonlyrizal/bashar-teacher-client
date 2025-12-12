@@ -15,10 +15,16 @@ const PaymentSuccessPage = () => {
       const verifyPayment = async () => {
         try {
           // 1. Call your backend endpoint to verify the session
-          const response = await api.post('/payments/success', { sessionId });
+          // Add a timeout to prevent hanging forever
+          const response = await Promise.race([
+            api.post('/payments/success', { sessionId }),
+            new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('Request timed out')), 10000)
+            )
+          ]);
 
           // 2. The backend should confirm the payment was processed (by the webhook)
-          if (response.data.message.includes('recorded')) {
+          if (response.data.message.includes('recorded') || response.data.payment) {
             setStatus('Payment Successful! Your tutor has been approved.');
           } else if (response.data.message.includes('processing')) {
             setStatus(
@@ -28,10 +34,16 @@ const PaymentSuccessPage = () => {
             setStatus('Payment verification uncertain. Please contact support.');
           }
         } catch (err) {
-          setError(
-            'Payment verification failed or timed out. Please check your payment history or contact support.'
-          );
-          console.error('Payment verification error:', err);
+          console.error('Payment verification error trace:', err);
+          
+          let errorMessage = 'Payment verification failed.';
+          if (err.message === 'Request timed out') {
+             errorMessage = 'Verification timed out. The server might be busy processing the webhook.';
+          } else if (err.response) {
+             errorMessage = `Server Error: ${err.response.data?.message || err.response.statusText}`;
+          }
+          
+          setError(errorMessage);
           setStatus('Verification Failed');
         } finally {
           setLoading(false);

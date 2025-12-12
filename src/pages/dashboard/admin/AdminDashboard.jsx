@@ -13,7 +13,8 @@ const AdminDashboard = () => {
     totalTutors: 0,
     totalTuitions: 0,
     pendingTuitions: 0,
-    platformRevenue: 0,
+    totalRevenue: 0,
+    totalTransactions: 0
   });
   const [loading, setLoading] = useState(true);
 
@@ -23,25 +24,8 @@ const AdminDashboard = () => {
 
   const fetchDashboardStats = async () => {
     try {
-      const [usersRes, tuitionsRes, earningsRes] = await Promise.all([
-        api.get('/users'),
-        api.get('/tuitions/pending'),
-        api
-          .get('/payments/platform-earnings')
-          .catch(() => ({ data: { stats: { totalPlatformFees: 0 } } })),
-      ]);
-
-      const users = usersRes.data.users || [];
-      const tuitions = tuitionsRes.data.tuitions || [];
-
-      setStats({
-        totalUsers: users.length,
-        totalStudents: users.filter((u) => u.role === 'Student').length,
-        totalTutors: users.filter((u) => u.role === 'Tutor').length,
-        totalTuitions: tuitions.length,
-        pendingTuitions: tuitions.filter((t) => t.status === 'Pending').length,
-        platformRevenue: earningsRes.data.stats?.totalPlatformFees || 0,
-      });
+      const { data } = await api.get('/admin/stats');
+      setStats(data);
     } catch (error) {
       console.error('Error fetching stats:', error);
     } finally {
@@ -87,7 +71,7 @@ const AdminDashboard = () => {
     },
     {
       title: 'Platform Revenue',
-      value: `৳${stats.platformRevenue.toLocaleString()}`,
+      value: `৳${stats.totalRevenue?.toLocaleString()}`,
       icon: <FaMoneyBillWave className="text-4xl" />,
       color: 'text-accent',
       link: '/dashboard/admin/analytics',
@@ -119,7 +103,7 @@ const AdminDashboard = () => {
               <div className="card-body">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h2 className="card-title text-base-content/70 text-sm">{stat.title}</h2>
+                    <h2 className="card-title text-gray-600 text-sm">{stat.title}</h2>
                     <p className={`text-4xl font-bold mt-2 ${stat.color}`}>
                       {loading ? <span className="loading loading-spinner"></span> : stat.value}
                     </p>

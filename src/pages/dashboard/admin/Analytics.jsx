@@ -14,9 +14,11 @@ const Analytics = () => {
     );
   }
 
-  // Calculate generic platform fees (5% assumption as per component)
-  const platformFees = stats.totalRevenue * 0.05;
-  const avgTransaction = stats.totalTransactions > 0 ? stats.totalRevenue / stats.totalTransactions : 0;
+  // Use real data from backend
+  const platformRevenue = stats.totalRevenue || 0;
+  const totalVolume = stats.totalVolume || 0;
+  const tutorEarnings = totalVolume - platformRevenue;
+  const avgTransaction = stats.totalTransactions > 0 ? totalVolume / stats.totalTransactions : 0;
 
   return (
     <div>
@@ -24,13 +26,13 @@ const Analytics = () => {
 
       {/* Revenue Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="card bg-linear-to-br from-primary to-primary/70 text-primary-content">
+        <div className="card bg-linear-to-br from-primary to-primary/70 text-white">
           <div className="card-body">
             <div className="flex justify-between items-start">
               <div>
-                <h2 className="card-title text-sm opacity-90">Total Revenue</h2>
+                <h2 className="card-title text-sm opacity-90">Total Trans. Volume</h2>
                 <p className="text-3xl font-bold mt-2">
-                  ৳{stats.totalRevenue?.toLocaleString()}
+                  ৳{totalVolume.toLocaleString()}
                 </p>
               </div>
               <FaMoneyBillWave className="text-4xl opacity-50" />
@@ -38,13 +40,13 @@ const Analytics = () => {
           </div>
         </div>
 
-        <div className="card bg-linear-to-br from-success to-success/70 text-success-content">
+        <div className="card bg-linear-to-br from-success to-success/70 text-white">
           <div className="card-body">
             <div className="flex justify-between items-start">
               <div>
-                <h2 className="card-title text-sm opacity-90">Platform Fees (5%)</h2>
+                <h2 className="card-title text-sm opacity-90">Platform Revenue</h2>
                 <p className="text-3xl font-bold mt-2">
-                  ৳{platformFees.toLocaleString()}
+                  ৳{platformRevenue.toLocaleString()}
                 </p>
               </div>
               <FaChartLine className="text-4xl opacity-50" />
@@ -52,7 +54,7 @@ const Analytics = () => {
           </div>
         </div>
 
-        <div className="card bg-linear-to-br from-secondary to-secondary/70 text-secondary-content">
+        <div className="card bg-linear-to-br from-secondary to-secondary/70 text-white">
           <div className="card-body">
             <div className="flex justify-between items-start">
               <div>
@@ -64,7 +66,7 @@ const Analytics = () => {
           </div>
         </div>
 
-        <div className="card bg-linear-to-br from-accent to-accent/70 text-accent-content">
+        <div className="card bg-linear-to-br from-accent to-accent/70 text-white">
           <div className="card-body">
             <div className="flex justify-between items-start">
               <div>
@@ -107,7 +109,7 @@ const Analytics = () => {
                 <span className="text-2xl font-bold">
                   ৳
                   {stats.totalUsers > 0
-                    ? Math.round(stats.totalRevenue / stats.totalUsers).toLocaleString()
+                    ? Math.round(platformRevenue / stats.totalUsers).toLocaleString()
                     : 0}
                 </span>
               </div>
@@ -121,32 +123,32 @@ const Analytics = () => {
             <div className="space-y-4 mt-4">
               <div>
                 <div className="flex justify-between mb-2">
-                  <span>Platform Fees (5%)</span>
-                  <span className="font-bold">৳{platformFees.toLocaleString()}</span>
+                  <span>Platform Revenue</span>
+                  <span className="font-bold">৳{platformRevenue.toLocaleString()}</span>
                 </div>
                 <progress
                   className="progress progress-success"
-                  value={platformFees}
-                  max={stats.totalRevenue}
+                  value={platformRevenue}
+                  max={totalVolume || 1}
                 ></progress>
               </div>
               <div>
                 <div className="flex justify-between mb-2">
-                  <span>Tutor Earnings (95%)</span>
+                  <span>Tutor Earnings</span>
                   <span className="font-bold">
-                    ৳{(stats.totalRevenue - platformFees).toLocaleString()}
+                    ৳{tutorEarnings.toLocaleString()}
                   </span>
                 </div>
                 <progress
                   className="progress progress-primary"
-                  value={stats.totalRevenue - platformFees}
-                  max={stats.totalRevenue}
+                  value={tutorEarnings}
+                  max={totalVolume || 1}
                 ></progress>
               </div>
               <div className="divider"></div>
               <div className="flex justify-between text-lg font-bold">
-                <span>Total Revenue</span>
-                <span className="text-success">৳{stats.totalRevenue?.toLocaleString()}</span>
+                <span>Total Volume</span>
+                <span className="text-success">৳{totalVolume.toLocaleString()}</span>
               </div>
             </div>
           </div>

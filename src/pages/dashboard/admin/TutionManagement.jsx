@@ -54,19 +54,19 @@ const TuitionManagement = () => {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="card bg-warning text-warning-content">
+        <div className="card bg-warning text-black">
           <div className="card-body">
             <h2 className="card-title text-sm">Pending Review</h2>
             <p className="text-3xl font-bold">{tuitions ? tuitions.filter(t => t.status === 'Pending').length : 0}</p>
           </div>
         </div>
-        <div className="card bg-success text-success-content">
+        <div className="card bg-success text-white">
           <div className="card-body">
             <h2 className="card-title text-sm">Approved</h2>
             <p className="text-3xl font-bold">{tuitions ? tuitions.filter(t => t.status === 'Approved').length : 0}</p>
           </div>
         </div>
-        <div className="card bg-error text-error-content">
+        <div className="card bg-error text-white">
           <div className="card-body">
             <h2 className="card-title text-sm">Rejected</h2>
             <p className="text-3xl font-bold">{tuitions ? tuitions.filter(t => t.status === 'Rejected').length : 0}</p>

@@ -91,13 +91,18 @@ const MyApplications = () => {
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <h2 className="card-title text-2xl text-primary">
-                      {app.tuitionId?.subject} - {app.tuitionId?.class}
+                      {app.tuition?.subject} - {app.tuition?.class}
                     </h2>
                     <div className="flex gap-2 mt-2">
                       <div className={`badge ${getStatusBadge(app.status)}`}>
                         {app.status}
                       </div>
-                      {app.tuitionId?.isActive && (
+                      {/* Assuming isActive might be checking status or a specific flag. 
+                          If 'isActive' isn't on the tuition object, this might still be undefined. 
+                          Based on server filtered by 'Approved' for public, but here we see 'Assigned' etc. 
+                          Let's keep the logic but point to app.tuition. 
+                      */}
+                      {app.tuition?.status === 'Approved' && (
                         <div className="badge badge-success">Active</div>
                       )}
                     </div>
@@ -108,19 +113,19 @@ const MyApplications = () => {
                   </div>
                 </div>
 
-                {app.tuitionId && (
+                {app.tuition && (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
                     <div>
                       <span className="text-sm text-base-content/60">Location:</span>
-                      <p className="font-semibold">{app.tuitionId.location}</p>
+                      <p className="font-semibold">{app.tuition.location}</p>
                     </div>
                     <div>
                       <span className="text-sm text-base-content/60">Schedule:</span>
-                      <p className="font-semibold">{app.tuitionId.schedule}</p>
+                      <p className="font-semibold">{app.tuition.schedule}</p>
                     </div>
                     <div>
                       <span className="text-sm text-base-content/60">Budget:</span>
-                      <p className="font-semibold">৳{app.tuitionId.budget}</p>
+                      <p className="font-semibold">৳{app.tuition.budget}</p>
                     </div>
                   </div>
                 )}
@@ -132,7 +137,7 @@ const MyApplications = () => {
 
                 <div className="card-actions justify-end mt-4">
                   <Link
-                    to={`/tuitions/${app.tuitionId?._id}`}
+                    to={`/tuitions/${app.tuition?._id}`}
                     className="btn btn-sm btn-ghost"
                   >
                     <FaEye className="mr-1" /> View Tuition
