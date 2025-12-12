@@ -1,8 +1,7 @@
 // src/pages/dashboard/student/PaymentSuccessPage.jsx (Conceptual)
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
-// Assuming you have a custom hook or utility for secure API calls
+import api from '../../../utils/api';
 
 const PaymentSuccessPage = () => {
   const [searchParams] = useSearchParams();
@@ -16,11 +15,7 @@ const PaymentSuccessPage = () => {
       const verifyPayment = async () => {
         try {
           // 1. Call your backend endpoint to verify the session
-          const response = await axios.post(
-            `${import.meta.env.VITE_API_URL}/payments/success`, // Use your actual API URL
-            { sessionId },
-            { withCredentials: true } // Assuming you pass JWT via cookies or headers (adjust as needed)
-          );
+          const response = await api.post('/payments/success', { sessionId });
 
           // 2. The backend should confirm the payment was processed (by the webhook)
           if (response.data.message.includes('recorded')) {

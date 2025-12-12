@@ -99,9 +99,34 @@ const AppliedTutors = () => {
     }
   };
 
-  const handleAccept = (application) => {
-    // Redirect to payment page
-    navigate(`/dashboard/student/checkout/${application._id}`);
+  // State to track which application is currently processing payment
+  const [processingPaymentId, setProcessingPaymentId] = useState(null);
+
+  const handleAccept = async (application) => {
+    if (!application || !application._id) return;
+    
+    setProcessingPaymentId(application._id);
+    const toastId = toast.loading('Initializing payment...');
+
+    try {
+      // Call backend to create Stripe session
+      const response = await api.post('/payments/create-checkout-session', {
+        applicationId: application._id,
+        salary: application.expectedSalary
+      });
+
+      if (response.data && response.data.url) {
+        toast.success('Redirecting to Stripe...', { id: toastId });
+        // Redirect to Stripe Checkout
+        window.location.href = response.data.url;
+      } else {
+        throw new Error('No payment URL received');
+      }
+    } catch (error) {
+      console.error('Payment initialization error:', error);
+      toast.error('Failed to start payment. Please try again.', { id: toastId });
+      setProcessingPaymentId(null);
+    }
   };
 
   const handleReject = async (applicationId) => {
@@ -170,6 +195,7 @@ const AppliedTutors = () => {
               onAccept={handleAccept}
               onReject={handleReject}
               getStatusBadge={getStatusBadge}
+              isProcessing={processingPaymentId === app._id}
             />
           ))}
         </div>
@@ -187,6 +213,7 @@ const AppliedTutors = () => {
                     onAccept={handleAccept}
                     onReject={handleReject}
                     getStatusBadge={getStatusBadge}
+                    isProcessing={processingPaymentId === app._id}
                   />
                 ))}
               </div>
@@ -198,7 +225,7 @@ const AppliedTutors = () => {
   );
 };
 
-const ApplicationCard = ({ application, index, onAccept, onReject, getStatusBadge }) => (
+const ApplicationCard = ({ application, index, onAccept, onReject, getStatusBadge, isProcessing }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -207,6 +234,7 @@ const ApplicationCard = ({ application, index, onAccept, onReject, getStatusBadg
   >
     <div className="card-body">
       <div className="flex items-start gap-4">
+        {/* Avatar and Info... (unchanged) */}
         <div className="avatar">
           <div className="w-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
             <img 
@@ -261,14 +289,21 @@ const ApplicationCard = ({ application, index, onAccept, onReject, getStatusBadg
               <button
                 onClick={() => onReject(application._id)}
                 className="btn btn-error btn-sm"
+                disabled={isProcessing}
               >
                 <FaTimesCircle className="mr-1" /> Reject
               </button>
               <button
                 onClick={() => onAccept(application)}
                 className="btn btn-success btn-sm"
+                disabled={isProcessing}
               >
-                <FaCreditCard className="mr-1" /> Accept & Pay
+                {isProcessing ? (
+                  <span className="loading loading-spinner loading-xs"></span>
+                ) : (
+                  <FaCreditCard className="mr-1" />
+                )}
+                {isProcessing ? 'Processing...' : 'Accept & Pay'}
               </button>
             </div>
           )}
