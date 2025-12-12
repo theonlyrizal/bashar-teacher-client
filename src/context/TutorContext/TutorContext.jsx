@@ -24,7 +24,7 @@ const TutorProvider = ({ children }) => {
       // Wait, Tutors page usually lists tutors. Let's check Tutors.jsx later.
       // For now, let's implement what we know exists or standard placeholders.
       // If Tutors.jsx was fetching data, how did it do it?
-      // Maybe it was using /users/tutors/latest or something. 
+      // Maybe it was using /users/tutors/latest or something.
       // I will implement fetching latest for now.
       const response = await api.get('/users/tutors/latest');
       setTutors(response.data);
@@ -81,52 +81,52 @@ const TutorProvider = ({ children }) => {
 
   // Update Application
   const updateApplication = async (id, updates) => {
-      try {
-          const response = await api.patch(`/applications/${id}`, updates);
-          if (response.data.success || response.data.modifiedCount > 0) {
-              toast.success('Application updated successfully');
-              fetchMyApplications();
-              return { success: true };
-          }
-          return { success: false };
-      } catch (error) {
-          console.error('Update application error:', error);
-          toast.error(error.response?.data?.message || 'Failed to update application');
-          return { success: false, error };
+    try {
+      const response = await api.patch(`/applications/${id}`, updates);
+      if (response.data.success || response.data.modifiedCount > 0) {
+        toast.success('Application updated successfully');
+        fetchMyApplications();
+        return { success: true };
       }
+      return { success: false };
+    } catch (error) {
+      console.error('Update application error:', error);
+      toast.error(error.response?.data?.message || 'Failed to update application');
+      return { success: false, error };
+    }
   };
 
   // Delete Application
   const deleteApplication = async (id) => {
-      try {
-          const response = await api.delete(`/applications/${id}`);
-          if (response.data.success || response.data.deletedCount > 0) {
-              toast.success('Application deleted successfully');
-              fetchMyApplications();
-              return { success: true };
-          }
-          return { success: false };
-      } catch (error) {
-          console.error('Delete application error:', error);
-          toast.error('Failed to delete application');
-          return { success: false, error };
+    try {
+      const response = await api.delete(`/applications/${id}`);
+      if (response.data.success || response.data.deletedCount > 0) {
+        toast.success('Application deleted successfully');
+        fetchMyApplications();
+        return { success: true };
       }
+      return { success: false };
+    } catch (error) {
+      console.error('Delete application error:', error);
+      toast.error('Failed to delete application');
+      return { success: false, error };
+    }
   };
 
   const applyForTuition = async (applicationData) => {
-      try {
-          const response = await api.post('/applications', applicationData);
-          if (response.data.success || response.data.insertedId) {
-              // toast.success('Application submitted successfully!'); // Let component handle success toast or do it here
-              // fetchMyApplications(); // Optional, if we want to update the list immediately
-              return { success: true };
-          }
-          return { success: false, message: response.data.message };
-      } catch (error) {
-          console.error('Application error:', error);
-          // toast.error(error.response?.data?.message || 'Failed to submit application');
-          return { success: false, error };
+    try {
+      const response = await api.post('/applications', applicationData);
+      if (response.data.success || response.data.insertedId) {
+        // toast.success('Application submitted successfully!'); // Let component handle success toast or do it here
+        // fetchMyApplications(); // Optional, if we want to update the list immediately
+        return { success: true };
       }
+      return { success: false, message: response.data.message };
+    } catch (error) {
+      console.error('Application error:', error);
+      // toast.error(error.response?.data?.message || 'Failed to submit application');
+      return { success: false, error };
+    }
   };
 
   const value = {
@@ -137,12 +137,10 @@ const TutorProvider = ({ children }) => {
     fetchTutors,
     fetchMyApplications,
     fetchMyRevenue,
-    fetchMyRevenue,
-    fetchMyRevenue,
     updateApplication,
     deleteApplication,
     applyForTuition,
-    getTutor
+    getTutor,
   };
 
   return <TutorContext.Provider value={value}>{children}</TutorContext.Provider>;
