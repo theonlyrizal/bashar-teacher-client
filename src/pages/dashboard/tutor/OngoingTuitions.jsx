@@ -16,7 +16,9 @@ const OngoingTuitions = () => {
   const fetchOngoingTuitions = async () => {
     try {
       const response = await api.get('/applications/approved');
-      if (response.data.success) {
+      if (Array.isArray(response.data)) {
+        setOngoingTuitions(response.data);
+      } else if (response.data.success) {
         setOngoingTuitions(response.data.applications);
       }
     } catch (error) {
@@ -53,8 +55,8 @@ const OngoingTuitions = () => {
       ) : (
         <div className="grid grid-cols-1 gap-6">
           {ongoingTuitions.map((application, index) => {
-            const tuition = application.tuitionId;
-            const student = tuition?.studentId;
+            const tuition = application.tuition;
+            const student = application.student;
 
             return (
               <motion.div

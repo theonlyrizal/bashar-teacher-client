@@ -6,7 +6,7 @@ import logo from '../../assets/images/basharTeacherLogo.png';
 
 const Navbar = () => {
   const { user, logout, loading } = useAuth();
-  const [isDark, setIsDark] = useLocalStorage('darkMode', false);
+  const [isDark, setIsDark] = useLocalStorage('darkMode', true);
 
   useEffect(() => {
     document.body.setAttribute('data-theme', isDark ? 'basharteacher-dark' : 'basharteacher');
@@ -104,7 +104,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-end gap-2 md:gap-4">
         {user ? (
-          <div className="dropdown dropdown-end hover:cursor-pointer relative">
+          <div className="dropdown dropdown-end dropdown-hover hover:cursor-pointer relative">
             <div tabIndex={0} role="button">
               <div className="join h-10 items-center max-w-[180px] overflow-hidden">
                 <img
