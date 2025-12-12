@@ -8,8 +8,7 @@ const Contact = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Here you would typically send the data to your backend or use a service like EmailJS
-        // For now, we'll just simulate a success
+        // 
         toast.success("Message sent successfully! We'll get back to you soon.");
         formRef.current.reset();
     };

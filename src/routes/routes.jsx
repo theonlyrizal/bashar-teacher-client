@@ -29,7 +29,11 @@ import TuitionManagement from '../pages/dashboard/admin/TutionManagement';
 import Analytics from '../pages/dashboard/admin/Analytics';
 import PaymentSuccessPage from '../pages/dashboard/student/PaymentSuccessPage';
 import Profile from '../pages/profile/Profile';
+
 import OngoingTuitions from '../pages/dashboard/tutor/OngoingTuitions';
+import FAQ from '../pages/common/FAQ';
+import PrivacyPolicy from '../pages/common/PrivacyPolicy';
+import TermsOfService from '../pages/common/TermsOfService';
 
 // Dashboard Pages
 
@@ -82,6 +86,18 @@ export const routes = createBrowserRouter([
       {
         path: '/contact',
         element: <Contact />,
+      },
+      {
+        path: '/faq',
+        element: <FAQ />,
+      },
+      {
+        path: '/privacy',
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: '/terms',
+        element: <TermsOfService />,
       },
       // Student Dashboard Routes
       {
