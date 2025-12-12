@@ -21,7 +21,7 @@ import AppliedTutors from '../pages/dashboard/student/AppliedTutors';
 import StudentPayments from '../pages/dashboard/student/StudentPayments';
 import StudentProfile from '../pages/dashboard/student/StudentProfile';
 import TutorDashboard from '../pages/dashboard/tutor/TutorDashboard';
-import MyApplications from '../pages/dashboard/tutor/MyApplictions';
+import MyApplications from '../pages/dashboard/tutor/MyApplications';
 import TutorRevenue from '../pages/dashboard/tutor/TutorRevenue';
 import AdminDashboard from '../pages/dashboard/admin/AdminDashboard';
 import UserManagement from '../pages/dashboard/admin/UserManagement';
@@ -29,7 +29,7 @@ import TuitionManagement from '../pages/dashboard/admin/TutionManagement';
 import Analytics from '../pages/dashboard/admin/Analytics';
 import PaymentSuccessPage from '../pages/dashboard/student/PaymentSuccessPage';
 import Profile from '../pages/profile/Profile';
-import OngoingTuitions from '../pages/dashboard/tutor/OngoingTutions';
+import OngoingTuitions from '../pages/dashboard/tutor/OngoingTuitions';
 
 // Dashboard Pages
 
