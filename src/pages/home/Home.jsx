@@ -30,7 +30,9 @@ const Home = () => {
         api.get('/users/tutors/latest').catch(() => ({ data: { tutors: [] } })),
       ]);
 
-      setLatestTuitions(Array.isArray(tuitionsRes.data) ? tuitionsRes.data : tuitionsRes.data.tuitions || []);
+      setLatestTuitions(
+        Array.isArray(tuitionsRes.data) ? tuitionsRes.data : tuitionsRes.data.tuitions || []
+      );
       setLatestTutors(Array.isArray(tutorsRes.data) ? tutorsRes.data : tutorsRes.data.tutors || []);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -91,7 +93,10 @@ const Home = () => {
               Find Your Perfect Match
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="text-xl md:text-2xl text-base-content/70 mb-8">
+            <motion.p
+              variants={itemVariants}
+              className="text-xl md:text-2xl text-base-content/70 mb-8"
+            >
               Connect with qualified tutors or discover exciting tuition opportunities across
               Bangladesh
             </motion.p>
