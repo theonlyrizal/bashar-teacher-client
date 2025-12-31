@@ -7,7 +7,7 @@
 
 Bashar Teacher is a comprehensive tuition management platform designed to connect qualified tutors with students across Bangladesh. It provides a seamless interface for students to post tuition requirements and for tutors to find matched opportunities.
 
-![Bashar Teacher Homepage](./public/screenshot.png)
+<img src="https://i.ibb.co.com/LXBL2dMZ/Screenshot-2025-12-20-142126.png">
 
 ## 🌐 Live Project
 **Live Link:** [https://bashar-teacher.vercel.app](https://bashar-teacher.vercel.app)
@@ -63,7 +63,7 @@ To run this project locally, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/bashar-teacher-client.git
+   git clone https://github.com/theonlyrizal/bashar-teacher-client.git
    cd bashar-teacher-client
    ```
 
